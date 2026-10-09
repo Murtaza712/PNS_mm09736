@@ -26,7 +26,9 @@
   - [Probability Mass Function (PMF)](#probability-mass-function-pmf)
   - [Expected Value (Mean)](#expected-value-mean)
   - [Common Discrete Random Variables](#common-discrete-random-variables)
-- [7. Continuous Random Variables](#7-continuous-random-variables)
+- [7. Continuous Random Variables & Probability Distributions](#7-continuous-random-variables--probability-distributions)
+  - [Probability Density Functions (PDF) & The Zero Probability Paradox](#probability-density-functions-pdf--the-zero-probability-paradox)
+  - [Probability Distribution Functions (PMF, PDF, and CDF)](#probability-distribution-functions-pmf-pdf-and-cdf)
   - [Example: The Romeo and Juliet Problem](#example-the-romeo-and-juliet-problem)
 - [8. Vocabulary Glossary](#8-vocabulary-glossary)
 
@@ -399,14 +401,43 @@ Just like binomial coefficients appear when expanding $(x+y)^n$, multinomial coe
 ## 6. Random Variables & Expected Value (Weeks 6 & 7)
 
 ### Random Variables (RVs)
-A random variable is not a traditional algebra variable. Mathematically, it is a **function** that assigns a real number to every possible outcome in a sample space ($\Omega \rightarrow \mathbb{R}$). 
-*   **Discrete RV:** Takes on a finite or countably infinite number of values (e.g., Number of heads in 5 coin tosses).
-*   **Continuous RV:** Takes on an uncountably infinite number of values (e.g., The exact time it takes to commute).
+*(These concepts are based on this [video on Random Variables](https://youtu.be/3v9w79NhsfI?si=VP1zu_-rixweJoZw))*
 
-### Probability Mass Function (PMF)
+Unlike traditional algebra variables that represent a single unknown value (e.g., $x+5=6$), a **random variable** is a function that maps outcomes of a random process to numerical values (quantification). They are typically denoted by capital letters, such as $X$ or $Y$. 
+*   **Why use them?** By converting random outcomes into numbers, we can use cleaner mathematical notation. Instead of describing a long scenario, you can simply write $P(Y \leq 30)$, representing the probability that the sum $Y$ is less than or equal to 30.
+*   **Examples:**
+    *   **Coin Flip ($X$):** Define $X=1$ if the result is *heads* and $X=0$ if *tails*. 
+    *   **Dice Roll ($Y$):** Define $Y$ as the sum of the upward-facing sides of seven rolled dice.
+*   **Key Difference:** Algebraic variables can be solved for or assigned a specific constant value. Random variables take on many different values with varying probabilities, so we evaluate the *probability* of the variable equaling a value, not solving for a single constant.
+
+### Discrete vs. Continuous Random Variables
+*(These concepts are based on this [video on Discrete and Continuous Random Variables](https://youtu.be/dOr0NKyD31Q?si=MxM3iZdswM2vpbqd))*
+
+Random variables come in two main varieties:
+*   **Discrete Random Variables:** Variables that take on distinct, separate, or countable values. If you can logically count or list the possible outcomes (even if the list is infinite), it is discrete.
+    *   *Examples:* Coin flip ($0$ or $1$), birth year ($1992, 1993\dots$), number of ants born tomorrow ($1, 2, 3\dots$).
+*   **Continuous Random Variables:** Variables that can take on *any* value within a range or interval. Because there are infinitely many possible precise values, you cannot list them.
+    *   *Examples:* The exact mass of an animal (e.g., $123.75921\dots$ kg), the exact winning time of a 100m dash (e.g., $9.5712\dots$ seconds).
+    *   *Note on Rounding:* If you round a continuous measurement (like rounding a race time to the nearest hundredth: $9.56, 9.57$), it becomes a discrete random variable because the values are now distinct and countable!
+
+### Probability Mass Function (PMF) & Distributions
+*(The following example is based on a Khan Academy video on constructing discrete probability distributions)*
+
 The PMF characterizes a Discrete Random Variable by detailing the probability of each specific value it can take.
 <mark style="background-color: lightblue;">$$p_X(x) = P(X = x)$$</mark>
 *   **Properties:** $p_X(x) \geq 0$ and $\sum p_X(x) = 1$.
+
+**Constructing a Discrete Probability Distribution:**
+Let $X$ be the number of heads obtained when flipping a fair coin three times. 
+1.  **Possible Outcomes:** There are 8 equally likely outcomes: {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}.
+2.  **Calculating Probabilities:**
+    *   $P(X=0) = 1/8$ (only TTT)
+    *   $P(X=1) = 3/8$ (HTT, THT, TTH)
+    *   $P(X=2) = 3/8$ (HHT, HTH, THH)
+    *   $P(X=3) = 1/8$ (only HHH)
+3.  **Constructing the Distribution:** We can plot these probabilities on a bar graph (values of $X$ on the horizontal axis, probabilities on the vertical axis). This constitutes a **discrete probability distribution** because $X$ only takes on distinct integer values.
+
+![Discrete Probability Distribution Example](./assets/drv1.png)
 
 ### Expected Value (Mean)
 The Expected Value ($E[X]$ or $\mu$) represents the "center of gravity" of the PMF. It is the weighted average of all possible values, weighted by their probabilities.
@@ -425,9 +456,78 @@ The Expected Value ($E[X]$ or $\mu$) represents the "center of gravity" of the P
 
 ---
 
-## 7. Continuous Random Variables
+## 7. Continuous Random Variables & Probability Distributions
 
-When dealing with continuous random variables (like time, distance, etc.), the probability of a single exact point is zero. Instead, we calculate probability over a range using **Area**.
+When dealing with continuous random variables (like time, distance, height, or rainfall), the probability of landing on a single, infinitely exact point is zero. Instead, probability is represented by **area under the curve**.
+
+### Probability Density Functions (PDF) & The Zero Probability Paradox
+*(These concepts and examples are based on this [video on Discrete vs. Continuous Random Variables & PDFs](https://youtu.be/Fvi9A_tEmXQ?si=YTpLrftu669FTf_3))*
+
+*   **Continuous Random Variable ($Y$):** A variable that can take on an infinite number of values within an interval (e.g., measurements like rainfall, time, or weight).
+*   **Probability Density Function (PDF):** A function $f(x)$ used to describe the probability distribution of a continuous random variable. Unlike discrete variables where probabilities sit on individual points, continuous probabilities are represented by the **area under the curve**.
+*   **The Zero Probability Paradox:**
+    *   **Scenario (Rainfall Tomorrow):** Let $Y$ be the exact amount of rain tomorrow in inches. What is the probability that it rains *exactly* 2 inches ($P(Y = 2)$)?
+    *   **The Intuition:** Even if the PDF peaks around 2 inches, the probability of getting *exactly* 2.0000000... inches (not 2.01, not 1.99, not a single water molecule above or below the 2-inch mark) is **effectively zero**. Our physical tools cannot measure to infinite precision, and no exact measurement exists without extra or missing atoms.
+    *   **The Geometry:** On a graph, an exact single point is a single line with height, but its width (base) is $0$. Since $\text{Area} = \text{height} \times \text{width}$, the area of a single line is $0$.
+*   **Probability as an Interval (Definite Integral):**
+    *   To get a non-zero probability, you must ask for an interval or tolerance around a value. For example, asking for the probability of rain within $0.1$ inches of 2 inches:
+        $$|Y - 2| < 0.1 \iff 1.9 < Y < 2.1$$
+    *   This defines a region with width ($2.1 - 1.9 = 0.2$), and the probability is the area under the PDF curve:
+        <mark style="background-color: lightblue;">$$P(1.9 \le Y \le 2.1) = \int_{1.9}^{2.1} f(x) \, dx$$</mark>
+*   **Total Probability Rule:**
+    *   The total probability of all possible outcomes must always equal **1** (or 100%):
+        *   **Discrete (Coin Flips):** A coin flip has two distinct outcomes ($X = 1$ for heads, $X = 0$ for tails), each having a specific non-zero probability (e.g., $0.5$ and $0.5$, or $0.6$ and $0.4$). The individual probabilities sum to 1: $\sum p(x) = 1$.
+        *   **Continuous (PDF):** The total area under the entire PDF curve must equal 1:
+            <mark style="background-color: lightblue;">$$\int_{-\infty}^{\infty} f(x) \, dx = 1 \quad \left(\text{or } \int_{0}^{\infty} f(x) \, dx = 1 \text{ for rainfall}\right)$$</mark>
+
+---
+
+### Probability Distribution Functions (PMF, PDF, and CDF)
+*(These concepts and examples are based on this [video on Probability Distribution Functions (PMF, PDF, CDF)](https://youtu.be/YXLVjCKVP7U?si=LmDsOG7oSfPbIWc9))*
+
+Probability distributions describe how probabilities are spread over outcomes:
+1.  **PMF (Probability Mass Function):** Used for **discrete** variables. Gives the probability of each individual discrete outcome ($P(X = x)$).
+2.  **PDF (Probability Density Function):** Used for **continuous** variables. The height represents *probability density*, not probability; probability is obtained by integrating over a range (area under the curve).
+3.  **CDF (Cumulative Distribution Function):** Used for **both** discrete and continuous variables. Represents the total accumulated probability up to a certain point:
+    <mark style="background-color: lightblue;">$$F(x) = P(X \le x)$$</mark>
+    *   The scale of the CDF always starts at $0$ on the left and reaches $1$ ($100\%$) on the right.
+
+#### 1. Discrete Variables & The CDF (Dice Examples)
+*   <mark style="background-color: lightgreen;">Example 1: Standard Six-Sided Die</mark>
+    *   **PMF:** Six distinct outcomes $\{1, 2, 3, 4, 5, 6\}$, each with probability $1/6 \approx 0.167$.
+    *   **CDF ($F(x)$):** Sums the probabilities of rolling $x$ or less. For example, rolling a 4 or less ($P(X \le 4)$):
+        $$F(4) = P(X \le 4) = P(X=1) + P(X=2) + P(X=3) + P(X=4) = \frac{4}{6} \approx 0.667$$
+    *   Graphically, the CDF stacks each discrete probability mass, stepping up at each integer outcome until reaching 1 at $X = 6$.
+*   <mark style="background-color: lightgreen;">Example 2: Rigged Die (Zero Mass Regions)</mark>
+    *   Suppose a die is rigged so it cannot roll 3s or 4s. The outcomes $\{1, 2, 5, 6\}$ each have probability $0.25$ ($25\%$), while $P(X=3) = 0$ and $P(X=4) = 0$.
+    *   **CDF Behavior:** In the CDF, the curve is **flat (horizontal)** across 3 and 4. A flat gradient in the CDF indicates that **no probability mass exists** in that range ($P(X \le 4) = P(X \le 2)$).
+
+#### 2. Continuous Variables & The CDF (Women's Height Example)
+*   <mark style="background-color: lightgreen;">Example: Adult Female Heights</mark>
+    *   Height is a continuous variable (e.g., $165.387\dots$ cm).
+    *   **PDF:** A symmetrical bell curve centered at a mean of $\mu = 165\text{ cm}$, spanning roughly from $140\text{ cm}$ to $190\text{ cm}$. The peak height of the PDF at $165\text{ cm}$ is approximately $0.04$.
+    *   **CDF ($S$-Curve):** The cumulative distribution forms a smooth **$S$-curve** going from $0$ to $1$:
+        *   At the mean ($165\text{ cm}$), exactly $50\%$ ($0.5$) of the distribution lies to the left, so $F(165) = 0.5$.
+        *   At $158\text{ cm}$, $25\%$ of the distribution has accumulated, so $F(158) = 0.25$.
+
+#### 3. Connecting PDF and CDF: The Calculus & Gradient Relationship
+There is a fundamental calculus connection between the PDF ($f(x)$) and the CDF ($F(x)$):
+
+![Relationship between PDF and CDF](./assets/image.png)
+
+*   **The PDF is the Gradient (Slope) of the CDF:**
+    *   The steeper the $S$-curve rises at any point, the higher the value of the PDF at that point.
+    *   *Calculating the gradient at $165\text{ cm}$:* Pick two points close to $165$, such as $164\text{ cm}$ and $166\text{ cm}$ ($\text{run} = 2\text{ cm}$). The CDF rises by $\Delta F \approx 0.08$.
+        $$\text{Gradient} = \frac{\text{rise}}{\text{run}} = \frac{0.08}{2} = 0.04$$
+    *   This slope ($0.04$) matches the peak probability density on the PDF curve at $165\text{ cm}$!
+    *   Where the CDF is flat (at the extreme tails near $140$ and $190$), the PDF is close to $0$. The gradient peaks right in the center, where the bell curve crests.
+*   **The Calculus Bridge:**
+    1.  **Differentiating the CDF yields the PDF:**
+        <mark style="background-color: lightblue;">$$\frac{dF(x)}{dx} = f(x)$$</mark>
+    2.  **Integrating the PDF from $-\infty$ to $x$ yields the CDF:**
+        <mark style="background-color: lightblue;">$$F(x) = \int_{-\infty}^{x} f(t) \, dt$$</mark>
+
+---
 
 ### Example: The Romeo and Juliet Problem
 *   **Scenario:** Romeo and Juliet agree to meet at a specific location between a given time frame (e.g., 12:00 and 1:00). Whoever arrives first will wait for exactly 15 minutes before leaving. What is the probability that they will meet?
@@ -451,7 +551,9 @@ Here is a master list of all the terminology introduced in this document:
 *   **Mutually Independent Events:** Three or more events where any combination is independent of the others (e.g., $P(A \cap B \cap C) = P(A)P(B)P(C)$).
 *   **Bayes' Theorem:** A formula used to "reverse" conditional probabilities or update the probability of a hypothesis based on new evidence.
 *   **Law of Total Probability:** A rule that expresses the total probability of an outcome, which can be realized via several distinct events, by combining the probabilities of those distinct events.
-*   **Continuous Random Variable:** A random variable where the data can take infinitely many values (like time or distance), meaning the probability of an exact point is zero and area is used instead.
 *   **Discrete Random Variable:** A random variable whose possible values are finite or countably infinite (like counting numbers).
-*   **Probability Mass Function (PMF):** A function that gives the exact probability that a discrete random variable is equal to a specific value.
+*   **Continuous Random Variable:** A random variable where the data can take infinitely many values in an interval (like time, distance, or weight), meaning the probability of an exact point is zero and area is used instead.
+*   **Probability Mass Function (PMF):** A function $p_X(x) = P(X = x)$ that gives the exact probability that a discrete random variable equals a specific value.
+*   **Probability Density Function (PDF):** A function $f(x)$ describing the probability density of a continuous random variable, where the area under the curve over an interval equals probability ($dP = f(x)dx$).
+*   **Cumulative Distribution Function (CDF):** A function $F(x) = P(X \le x)$ giving the total accumulated probability that a random variable is less than or equal to $x$. Its derivative is the PDF ($f(x) = \frac{dF(x)}{dx}$).
 *   **Expected Value (Mean):** The weighted average of all possible values of a random variable, weighted by their probabilities.
