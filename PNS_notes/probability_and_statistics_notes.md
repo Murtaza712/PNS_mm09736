@@ -21,16 +21,24 @@
   - [The Intuition Behind Permutations & Combinations](#the-intuition-behind-permutations--combinations)
   - [Binomial Probabilities](#binomial-probabilities)
   - [Partitions & Multinomial Coefficients](#partitions--multinomial-coefficients)
-- [6. Random Variables & Expected Value (Weeks 6 & 7)](#6-random-variables--expected-value-weeks-6--7)
+- [6. Random Variables & Probability Distributions (PMF, PDF, CDF)](#6-random-variables--probability-distributions-pmf-pdf-cdf)
   - [Random Variables (RVs)](#random-variables-rvs)
-  - [Probability Mass Function (PMF)](#probability-mass-function-pmf)
-  - [Expected Value (Mean)](#expected-value-mean)
-  - [Common Discrete Random Variables](#common-discrete-random-variables)
-- [7. Continuous Random Variables & Probability Distributions](#7-continuous-random-variables--probability-distributions)
-  - [Probability Density Functions (PDF) & The Zero Probability Paradox](#probability-density-functions-pdf--the-zero-probability-paradox)
-  - [Probability Distribution Functions (PMF, PDF, and CDF)](#probability-distribution-functions-pmf-pdf-and-cdf)
-  - [Example: The Romeo and Juliet Problem](#example-the-romeo-and-juliet-problem)
-- [8. Vocabulary Glossary](#8-vocabulary-glossary)
+  - [Discrete vs. Continuous Random Variables](#discrete-vs-continuous-random-variables)
+  - [Probability Mass Function (PMF) — Discrete Distributions](#probability-mass-function-pmf--discrete-distributions)
+  - [Probability Density Function (PDF) — Continuous Distributions [Post-Midterm]](#probability-density-function-pdf--continuous-distributions-post-midterm)
+  - [Cumulative Distribution Function (CDF) — Both Discrete & Continuous](#cumulative-distribution-function-cdf--both-discrete--continuous)
+  - [Connecting PDF and CDF: The Calculus & Gradient Relationship [Post-Midterm]](#connecting-pdf-and-cdf-the-calculus--gradient-relationship-post-midterm)
+  - [Continuous 2D Sample Spaces: The Romeo and Juliet Problem [Post-Midterm]](#continuous-2d-sample-spaces-the-romeo-and-juliet-problem-post-midterm)
+- [7. Expectation (Mean), Variance & Moments (Weeks 6 & 7)](#7-expectation-mean-variance--moments-weeks-6--7)
+  - [Expected Value (Mean $\mu$)](#expected-value-mean)
+  - [Variance and Standard Deviation](#variance-and-standard-deviation)
+- [8. Common Discrete Random Variable Distributions](#8-common-discrete-random-variable-distributions)
+  - [1. Bernoulli Distribution](#1-bernoulli-distribution)
+  - [2. Binomial Distribution](#2-binomial-distribution)
+  - [3. Geometric Distribution](#3-geometric-distribution)
+  - [4. Discrete Uniform Distribution](#4-discrete-uniform-distribution)
+  - [5. Poisson Distribution](#5-poisson-distribution)
+- [9. Vocabulary Glossary](#9-vocabulary-glossary)
 
 ## Index of Proofs
 - [Proof 1 (De Morgan's Laws)](#proof-1)
@@ -276,6 +284,7 @@ where $n \ge r$ and both are non-negative integers.
 
 ### Applying it to Binomial Probabilities
 *(These examples are based on this [video on Binomial Distribution Probabilities](https://youtu.be/3PWKQiLK41M?si=LCJOI1t98GidKfiE))*
+*(Note: For the formal Binomial Random Variable distribution, prerequisites, Excel functions, and the color blindness case study, see [Section 8.2 Binomial Distribution](#2-binomial-distribution)).*
 
 Used when you have $n$ independent trials (like coin tosses), and you want exactly $x$ successes.
 <mark style="background-color: lightblue;">$$P(x \text{ successes}) = \binom{n}{x} p^x (1-p)^{n-x}$$</mark>
@@ -398,149 +407,527 @@ Just like binomial coefficients appear when expanding $(x+y)^n$, multinomial coe
 
 ---
 
-## 6. Random Variables & Expected Value (Weeks 6 & 7)
+## 6. Random Variables & Probability Distributions (PMF, PDF, CDF)
 
 ### Random Variables (RVs)
 *(These concepts are based on this [video on Random Variables](https://youtu.be/3v9w79NhsfI?si=VP1zu_-rixweJoZw))*
 
-Unlike traditional algebra variables that represent a single unknown value (e.g., $x+5=6$), a **random variable** is a function that maps outcomes of a random process to numerical values (quantification). They are typically denoted by capital letters, such as $X$ or $Y$. 
-*   **Why use them?** By converting random outcomes into numbers, we can use cleaner mathematical notation. Instead of describing a long scenario, you can simply write $P(Y \leq 30)$, representing the probability that the sum $Y$ is less than or equal to 30.
+Unlike traditional algebra variables that represent a single fixed unknown (e.g., $x+5=6 \implies x=1$), a **random variable** is a function that maps outcomes of a random process or experiment to numerical values ($\Omega \rightarrow \mathbb{R}$). They are conventionally written with capital letters, such as $X$, $Y$, or $Z$.
+*   **Why use them?** Quantifying outcomes enables clean, powerful mathematical operations. Instead of writing long prose ("the probability that rolling seven dice yields a sum of 30 or less"), we simply write $P(Y \le 30)$.
 *   **Examples:**
-    *   **Coin Flip ($X$):** Define $X=1$ if the result is *heads* and $X=0$ if *tails*. 
-    *   **Dice Roll ($Y$):** Define $Y$ as the sum of the upward-facing sides of seven rolled dice.
-*   **Key Difference:** Algebraic variables can be solved for or assigned a specific constant value. Random variables take on many different values with varying probabilities, so we evaluate the *probability* of the variable equaling a value, not solving for a single constant.
+    *   **Coin Flip ($X$):** Define $X = 1$ if the result is *heads*, and $X = 0$ if *tails*.
+    *   **Dice Roll ($Y$):** Define $Y$ as the sum of the upward-facing numbers when seven dice are rolled.
+*   **Key Difference:** Algebraic variables are solved for a single value. Random variables take on whole distributions of potential values with varying probabilities.
+
+---
 
 ### Discrete vs. Continuous Random Variables
-*(These concepts are based on this [video on Discrete and Continuous Random Variables](https://youtu.be/dOr0NKyD31Q?si=MxM3iZdswM2vpbqd))*
+*(These concepts are based on this [video on Discrete and Continuous Random Variables](https://youtu.be/dOr0NKyD31Q?si=MxM3iZdswM2vpbqd) and this [video on Discrete vs. Continuous RVs & PDFs](https://youtu.be/Fvi9A_tEmXQ?si=YTpLrftu669FTf_3))*
 
-Random variables come in two main varieties:
-*   **Discrete Random Variables:** Variables that take on distinct, separate, or countable values. If you can logically count or list the possible outcomes (even if the list is infinite), it is discrete.
-    *   *Examples:* Coin flip ($0$ or $1$), birth year ($1992, 1993\dots$), number of ants born tomorrow ($1, 2, 3\dots$).
-*   **Continuous Random Variables:** Variables that can take on *any* value within a range or interval. Because there are infinitely many possible precise values, you cannot list them.
-    *   *Examples:* The exact mass of an animal (e.g., $123.75921\dots$ kg), the exact winning time of a 100m dash (e.g., $9.5712\dots$ seconds).
-    *   *Note on Rounding:* If you round a continuous measurement (like rounding a race time to the nearest hundredth: $9.56, 9.57$), it becomes a discrete random variable because the values are now distinct and countable!
+Random variables are broadly divided into two foundational classes:
+1.  **Discrete Random Variables:**
+    *   Variables that take on distinct, separate, countable values (often whole integers).
+    *   *Examples:* Result of a coin flip ($0$ or $1$), birth year ($1998, 1999\dots$), number of heads in 10 tosses, number of defects in a batch.
+2.  **Continuous Random Variables:**
+    *   Variables that can take on *any* value within a continuous interval or continuum (infinitely many possible decimals).
+    *   *Examples:* Rainfall tomorrow (e.g., $2.148\dots$ inches), human height (e.g., $165.387\dots$ cm), exact time to commute, weight of an animal.
+    *   *Note on Rounding:* If you round a continuous measurement to discrete buckets (such as rounding race times to the nearest hundredth of a second: $9.58, 9.59$), it technically behaves as a discrete random variable because the values are now distinct and countable.
 
-### Probability Mass Function (PMF) & Distributions
-*(The following example is based on a Khan Academy video on constructing discrete probability distributions)*
+---
 
-The PMF characterizes a Discrete Random Variable by detailing the probability of each specific value it can take.
+### The Probability Distribution Hierarchy
+A **probability distribution** describes the mathematical rule or framework that specifies the likelihood of each possible outcome of a random variable. The specific function used to represent the distribution depends on whether the variable is discrete or continuous:
+
+```
+                                  ┌──► Discrete RV   ──► PMF (Probability Mass Function) ───┐
+PROBABILITY DISTRIBUTION FUNCTION ┤                                                         ├──► CDF (Cumulative Distribution Function)
+                                  └──► Continuous RV ──► PDF (Probability Density Function) ┘
+```
+
+*   **1. Probability Mass Function (PMF):** Used **only** for Discrete Random Variables. The y-axis represents the *exact probability* ($P(X = x)$). Probabilities are points/bars that sum to $1$ ($\sum p(x) = 1$).
+*   **2. Probability Density Function (PDF):** Used **only** for Continuous Random Variables. The y-axis represents *probability density* ($\frac{dP}{dx}$). The probability of any exact single point is zero; probability is the area under the curve over an interval. Integrates to $1$ ($\int f(x)dx = 1$).
+*   **3. Cumulative Distribution Function (CDF):** Used for **both** discrete and continuous random variables. It measures accumulated probability from the left: $F(x) = P(X \le x)$, always scaling from $0$ up to $1$.
+
+> [!IMPORTANT] Midterm Scope Alert: Continuous Variables are Post-Midterm Content!
+> The upcoming midterm exam **only covers Discrete Random Variables (DRVs), PMFs, Expectation/Variance, and Discrete Distributions**.
+> Sections below regarding **Continuous Variables, PDFs, and continuous integration** are **Post-Midterm content (flagged for Finals)**. Focus on PMF, Expected Value, Variance, and Discrete Distributions for tomorrow.
+
+---
+
+### Probability Mass Function (PMF) — Discrete Distributions
+*(These concepts and examples are based on this [video on Discrete Probability Distributions](https://youtu.be/Fvi9A_tEmXQ?si=YTpLrftu669FTf_3) and this [video on Probability Distribution Functions](https://youtu.be/YXLVjCKVP7U?si=LmDsOG7oSfPbIWc9))*
+
+The **Probability Mass Function (PMF)** characterizes a discrete random variable by giving the exact probability of each specific value:
 <mark style="background-color: lightblue;">$$p_X(x) = P(X = x)$$</mark>
-*   **Properties:** $p_X(x) \geq 0$ and $\sum p_X(x) = 1$.
 
-**Constructing a Discrete Probability Distribution:**
-Let $X$ be the number of heads obtained when flipping a fair coin three times. 
-1.  **Possible Outcomes:** There are 8 equally likely outcomes: {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}.
-2.  **Calculating Probabilities:**
-    *   $P(X=0) = 1/8$ (only TTT)
-    *   $P(X=1) = 3/8$ (HTT, THT, TTH)
-    *   $P(X=2) = 3/8$ (HHT, HTH, THH)
-    *   $P(X=3) = 1/8$ (only HHH)
-3.  **Constructing the Distribution:** We can plot these probabilities on a bar graph (values of $X$ on the horizontal axis, probabilities on the vertical axis). This constitutes a **discrete probability distribution** because $X$ only takes on distinct integer values.
+*   **Axiomatic Properties:**
+    1.  Non-negativity: $p_X(x) \ge 0$ for all $x$.
+    2.  Normalization (Total Probability): $\sum_x p_X(x) = 1$ (the sum of all discrete probabilities must equal $100\%$).
+*   **The PMF Visual:** A series of isolated vertical bars or "spikes". **The height of the bar is the exact probability** (you read probability directly off the y-axis).
+
+#### Example 1: Flipping a Fair Coin Three Times
+Let $X$ be the number of heads obtained in 3 independent flips of a fair coin:
+1.  **Sample Space ($\Omega$):** 8 equally likely outcomes: $\{\text{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}\}$.
+2.  **Individual Probabilities:**
+    *   $P(X = 0) = 1/8$ ($\text{TTT}$)
+    *   $P(X = 1) = 3/8$ ($\text{HTT, THT, TTH}$)
+    *   $P(X = 2) = 3/8$ ($\text{HHT, HTH, THH}$)
+    *   $P(X = 3) = 1/8$ ($\text{HHH}$)
+3.  **Graphical PMF:**
 
 ![Discrete Probability Distribution Example](./assets/drv1.png)
 
-### Expected Value (Mean)
-The Expected Value ($E[X]$ or $\mu$) represents the "center of gravity" of the PMF. It is the weighted average of all possible values, weighted by their probabilities.
-<mark style="background-color: lightblue;">$$E[X] = \sum x \cdot p_X(x)$$</mark>
-*   **Linearity of Expectation:** $E[aX + b] = aE[X] + b$.
-*   **Functions of RVs:** If you have a function $g(X)$, its expected value is $E[g(X)] = \sum g(x) \cdot p_X(x)$. Note: $E[g(X)]$ does NOT generally equal $g(E[X])$.
-
-### Common Discrete Random Variables
-*   **Bernoulli RV:** Models a single trial with two outcomes (Success/Failure). 
-    *   $P(X=1) = p$, $P(X=0) = 1-p$.
-    *   Mean $E[X] = p$.
-*   **Binomial RV:** Models the number of successes in $n$ independent Bernoulli trials.
-*   **Geometric RV:** Models the number of independent trials needed *until* the first success.
-*   **Discrete Uniform RV:** Models a scenario where a contiguous range of integers are all equally likely.
-    *   Mean $E[X] = \frac{a+b}{2}$ (the exact middle of the range).
+#### Example 2: Standard Six-Sided Die
+*   Outcomes: $\{1, 2, 3, 4, 5, 6\}$.
+*   PMF: $P(X = x) = 1/6 \approx 0.167$ for each integer $x \in \{1, \dots, 6\}$.
 
 ---
 
-## 7. Continuous Random Variables & Probability Distributions
-
-When dealing with continuous random variables (like time, distance, height, or rainfall), the probability of landing on a single, infinitely exact point is zero. Instead, probability is represented by **area under the curve**.
-
-### Probability Density Functions (PDF) & The Zero Probability Paradox
+### Probability Density Function (PDF) — Continuous Distributions [Post-Midterm]
 *(These concepts and examples are based on this [video on Discrete vs. Continuous Random Variables & PDFs](https://youtu.be/Fvi9A_tEmXQ?si=YTpLrftu669FTf_3))*
 
-*   **Continuous Random Variable ($Y$):** A variable that can take on an infinite number of values within an interval (e.g., measurements like rainfall, time, or weight).
-*   **Probability Density Function (PDF):** A function $f(x)$ used to describe the probability distribution of a continuous random variable. Unlike discrete variables where probabilities sit on individual points, continuous probabilities are represented by the **area under the curve**.
+> [!NOTE] Post-Midterm Topic
+> Continuous PDFs and integrals are not on tomorrow's midterm. Documented here for continuity.
+
+For continuous random variables, probability cannot be placed on discrete spikes. Instead, we use a continuous curve called the **Probability Density Function (PDF)**, denoted $f(x)$.
+
 *   **The Zero Probability Paradox:**
-    *   **Scenario (Rainfall Tomorrow):** Let $Y$ be the exact amount of rain tomorrow in inches. What is the probability that it rains *exactly* 2 inches ($P(Y = 2)$)?
-    *   **The Intuition:** Even if the PDF peaks around 2 inches, the probability of getting *exactly* 2.0000000... inches (not 2.01, not 1.99, not a single water molecule above or below the 2-inch mark) is **effectively zero**. Our physical tools cannot measure to infinite precision, and no exact measurement exists without extra or missing atoms.
-    *   **The Geometry:** On a graph, an exact single point is a single line with height, but its width (base) is $0$. Since $\text{Area} = \text{height} \times \text{width}$, the area of a single line is $0$.
-*   **Probability as an Interval (Definite Integral):**
-    *   To get a non-zero probability, you must ask for an interval or tolerance around a value. For example, asking for the probability of rain within $0.1$ inches of 2 inches:
+    *   **The Scenario:** Let $Y$ be the exact amount of rain tomorrow in inches. What is the probability that it rains *exactly* 2.0000000... inches ($P(Y = 2)$)?
+    *   **The Intuition:** The probability is **0**. In the real physical world, measuring to infinite decimal precision is impossible; you cannot have a measurement with zero extra or missing water molecules.
+    *   **The Geometry:** On a continuous graph, a single point has height, but its width (base) is $0$. Since $\text{Area} = \text{height} \times \text{width}$, the area of a single line is $f(2) \times 0 = 0$.
+    *   **Rule:** For any continuous random variable:
+        <mark style="background-color: lightblue;">$$P(X = c) = 0 \quad \text{for any single point } c$$</mark>
+*   **Probability as an Area (Definite Integral):**
+    *   To get a non-zero probability, you must ask for an interval or tolerance around a value. For example, the probability that rainfall $Y$ is within $0.1$ inches of 2 inches:
         $$|Y - 2| < 0.1 \iff 1.9 < Y < 2.1$$
-    *   This defines a region with width ($2.1 - 1.9 = 0.2$), and the probability is the area under the PDF curve:
-        <mark style="background-color: lightblue;">$$P(1.9 \le Y \le 2.1) = \int_{1.9}^{2.1} f(x) \, dx$$</mark>
-*   **Total Probability Rule:**
-    *   The total probability of all possible outcomes must always equal **1** (or 100%):
-        *   **Discrete (Coin Flips):** A coin flip has two distinct outcomes ($X = 1$ for heads, $X = 0$ for tails), each having a specific non-zero probability (e.g., $0.5$ and $0.5$, or $0.6$ and $0.4$). The individual probabilities sum to 1: $\sum p(x) = 1$.
-        *   **Continuous (PDF):** The total area under the entire PDF curve must equal 1:
-            <mark style="background-color: lightblue;">$$\int_{-\infty}^{\infty} f(x) \, dx = 1 \quad \left(\text{or } \int_{0}^{\infty} f(x) \, dx = 1 \text{ for rainfall}\right)$$</mark>
+    *   This interval creates a finite base on the x-axis ($2.1 - 1.9 = 0.2$), and the probability is the **area under the curve**:
+        <mark style="background-color: lightblue;">$$P(a \le Y \le b) = \int_a^b f(x) \, dx$$</mark>
+*   **Total Probability Rule for Continuous RVs:**
+    *   The total area under the entire PDF must equal $1$ ($100\%$):
+        <mark style="background-color: lightblue;">$$\int_{-\infty}^{\infty} f(x) \, dx = 1 \quad \left(\text{or } \int_{0}^{\infty} f(x) \, dx = 1 \text{ for rainfall}\right)$$</mark>
+*   **Why is the y-axis "Density"?**
+    *   Probability is unitless. The x-axis has units of the variable (e.g., inches, kg).
+    *   Since $\text{Probability} = \text{y-axis} \times \text{x-axis}$, the y-axis has units of $\frac{\text{Probability}}{\text{units of } x}$ (a rate or concentration).
+    *   Thus, $dP = f(x) \, dx$.
 
 ---
 
-### Probability Distribution Functions (PMF, PDF, and CDF)
+### Cumulative Distribution Function (CDF) — Both Discrete & Continuous
 *(These concepts and examples are based on this [video on Probability Distribution Functions (PMF, PDF, CDF)](https://youtu.be/YXLVjCKVP7U?si=LmDsOG7oSfPbIWc9))*
 
-Probability distributions describe how probabilities are spread over outcomes:
-1.  **PMF (Probability Mass Function):** Used for **discrete** variables. Gives the probability of each individual discrete outcome ($P(X = x)$).
-2.  **PDF (Probability Density Function):** Used for **continuous** variables. The height represents *probability density*, not probability; probability is obtained by integrating over a range (area under the curve).
-3.  **CDF (Cumulative Distribution Function):** Used for **both** discrete and continuous variables. Represents the total accumulated probability up to a certain point:
-    <mark style="background-color: lightblue;">$$F(x) = P(X \le x)$$</mark>
-    *   The scale of the CDF always starts at $0$ on the left and reaches $1$ ($100\%$) on the right.
+The **Cumulative Distribution Function (CDF)**, denoted $F(x)$, gives the total accumulated probability up to a certain point:
+<mark style="background-color: lightblue;">$$F(x) = P(X \le x)$$</mark>
+
+*   **Universal Properties of any CDF:**
+    1.  Non-decreasing: As $x$ increases, $F(x)$ never decreases.
+    2.  Limits: $\lim_{x \to -\infty} F(x) = 0$ and $\lim_{x \to \infty} F(x) = 1$. The scale always goes from $0$ to $1$.
 
 #### 1. Discrete Variables & The CDF (Dice Examples)
-*   <mark style="background-color: lightgreen;">Example 1: Standard Six-Sided Die</mark>
-    *   **PMF:** Six distinct outcomes $\{1, 2, 3, 4, 5, 6\}$, each with probability $1/6 \approx 0.167$.
-    *   **CDF ($F(x)$):** Sums the probabilities of rolling $x$ or less. For example, rolling a 4 or less ($P(X \le 4)$):
+*   <mark style="background-color: lightgreen;">Example 1: Fair Six-Sided Die</mark>
+    *   The CDF steps upward at each integer outcome by stacking the PMF bars:
         $$F(4) = P(X \le 4) = P(X=1) + P(X=2) + P(X=3) + P(X=4) = \frac{4}{6} \approx 0.667$$
-    *   Graphically, the CDF stacks each discrete probability mass, stepping up at each integer outcome until reaching 1 at $X = 6$.
-*   <mark style="background-color: lightgreen;">Example 2: Rigged Die (Zero Mass Regions)</mark>
-    *   Suppose a die is rigged so it cannot roll 3s or 4s. The outcomes $\{1, 2, 5, 6\}$ each have probability $0.25$ ($25\%$), while $P(X=3) = 0$ and $P(X=4) = 0$.
-    *   **CDF Behavior:** In the CDF, the curve is **flat (horizontal)** across 3 and 4. A flat gradient in the CDF indicates that **no probability mass exists** in that range ($P(X \le 4) = P(X \le 2)$).
+    *   The CDF reaches $1.0$ at $X = 6$.
+*   <mark style="background-color: lightgreen;">Example 2: Rigged Die (Zero-Mass Regions)</mark>
+    *   Suppose a rigged die cannot roll 3s or 4s ($P(X=3) = 0, P(X=4) = 0$).
+    *   **CDF Behavior:** Across 3 and 4, the CDF curve is **completely flat (horizontal)**. A flat slope in a CDF indicates that **no probability mass exists** in that range ($P(X \le 4) = P(X \le 2)$).
+*   **Discrete CDF Inequality Cheat-Sheet:**
+    *   $P(X \le k) = F(k)$
+    *   $P(X < k) = P(X \le k - 1) = F(k - 1)$
+    *   $P(X > k) = 1 - P(X \le k) = 1 - F(k)$
+    *   $P(X \ge k) = 1 - P(X \le k - 1) = 1 - F(k - 1)$
+    *   $P(a \le X \le b) = F(b) - F(a - 1)$
 
 #### 2. Continuous Variables & The CDF (Women's Height Example)
 *   <mark style="background-color: lightgreen;">Example: Adult Female Heights</mark>
-    *   Height is a continuous variable (e.g., $165.387\dots$ cm).
-    *   **PDF:** A symmetrical bell curve centered at a mean of $\mu = 165\text{ cm}$, spanning roughly from $140\text{ cm}$ to $190\text{ cm}$. The peak height of the PDF at $165\text{ cm}$ is approximately $0.04$.
-    *   **CDF ($S$-Curve):** The cumulative distribution forms a smooth **$S$-curve** going from $0$ to $1$:
-        *   At the mean ($165\text{ cm}$), exactly $50\%$ ($0.5$) of the distribution lies to the left, so $F(165) = 0.5$.
-        *   At $158\text{ cm}$, $25\%$ of the distribution has accumulated, so $F(158) = 0.25$.
+    *   Height is continuous with a bell-shaped PDF centered at $\mu = 165\text{ cm}$ (spread roughly between $140\text{ cm}$ and $190\text{ cm}$).
+    *   **The CDF ($S$-Curve):** Integrating a symmetric bell curve generates a smooth **$S$-shaped curve**:
+        *   At the mean ($165\text{ cm}$), exactly $50\%$ of the area lies to the left $\implies F(165) = 0.5$.
+        *   At $158\text{ cm}$, $25\%$ of the distribution has accumulated $\implies F(158) = 0.25$.
 
-#### 3. Connecting PDF and CDF: The Calculus & Gradient Relationship
-There is a fundamental calculus connection between the PDF ($f(x)$) and the CDF ($F(x)$):
+---
+
+### Connecting PDF and CDF: The Calculus & Gradient Relationship [Post-Midterm]
+*(Based on the calculus connection from [zedstatistics](https://youtu.be/YXLVjCKVP7U?si=LmDsOG7oSfPbIWc9))*
+
+There is a fundamental mathematical bridge connecting the PDF ($f(x)$) and the CDF ($F(x)$):
 
 ![Relationship between PDF and CDF](./assets/image.png)
 
-*   **The PDF is the Gradient (Slope) of the CDF:**
-    *   The steeper the $S$-curve rises at any point, the higher the value of the PDF at that point.
-    *   *Calculating the gradient at $165\text{ cm}$:* Pick two points close to $165$, such as $164\text{ cm}$ and $166\text{ cm}$ ($\text{run} = 2\text{ cm}$). The CDF rises by $\Delta F \approx 0.08$.
+1.  **The PDF is the Gradient (Slope) of the CDF:**
+    *   The steeper the $S$-curve rises, the higher the PDF value at that point.
+    *   *Calculating the slope at $165\text{ cm}$:* Pick two nearby points, $164\text{ cm}$ and $166\text{ cm}$ ($\text{run} = 2\text{ cm}$). The CDF rises by $\Delta F \approx 0.08$.
         $$\text{Gradient} = \frac{\text{rise}}{\text{run}} = \frac{0.08}{2} = 0.04$$
-    *   This slope ($0.04$) matches the peak probability density on the PDF curve at $165\text{ cm}$!
-    *   Where the CDF is flat (at the extreme tails near $140$ and $190$), the PDF is close to $0$. The gradient peaks right in the center, where the bell curve crests.
-*   **The Calculus Bridge:**
-    1.  **Differentiating the CDF yields the PDF:**
-        <mark style="background-color: lightblue;">$$\frac{dF(x)}{dx} = f(x)$$</mark>
-    2.  **Integrating the PDF from $-\infty$ to $x$ yields the CDF:**
+    *   This slope ($0.04$) matches the exact peak probability density on the PDF curve at $165\text{ cm}$!
+    *   At the extreme tails ($140$ and $190$), the CDF is flat (slope $\approx 0$), which matches the near-zero height of the PDF tails.
+2.  **The Calculus Formulas:**
+    *   **Differentiating CDF gives PDF:**
+        <mark style="background-color: lightblue;">$$f(x) = \frac{dF(x)}{dx}$$</mark>
+    *   **Integrating PDF gives CDF:**
         <mark style="background-color: lightblue;">$$F(x) = \int_{-\infty}^{x} f(t) \, dt$$</mark>
 
 ---
 
-### Example: The Romeo and Juliet Problem
-*   **Scenario:** Romeo and Juliet agree to meet at a specific location between a given time frame (e.g., 12:00 and 1:00). Whoever arrives first will wait for exactly 15 minutes before leaving. What is the probability that they will meet?
-*   **Solution Strategy:** 
-    1.  Let $x$ be Romeo's arrival time and $y$ be Juliet's arrival time.
-    2.  This creates a continuous 2D sample space (a square representing all possible arrival times).
-    3.  The condition for them meeting is $|x - y| \leq 15$ minutes.
-    4.  Graphically, this represents the area between two diagonal lines ($y = x + 15$ and $y = x - 15$).
-    5.  The probability is found by calculating the area of this specific region and dividing it by the total area of the sample space. We cannot simply multiply independent discrete probabilities here.
+### Continuous 2D Sample Spaces: The Romeo and Juliet Problem [Post-Midterm]
+*   **Scenario:** Romeo and Juliet agree to meet at a location between 12:00 and 1:00. Whoever arrives first will wait for exactly 15 minutes before leaving. What is the probability that they will meet?
+*   **Solution Strategy:**
+    1.  Let $x$ be Romeo's arrival time and $y$ be Juliet's arrival time ($0 \le x, y \le 60$ minutes).
+    2.  This forms a continuous 2D sample space (a $60 \times 60$ square with total area $= 3600$).
+    3.  Condition for meeting: $|x - y| \le 15 \iff x - 15 \le y \le x + 15$.
+    4.  Graphically, the meeting region is the area between two diagonal lines.
+    5.  The non-meeting region consists of two triangles of corner dimension $45 \times 45$:
+        $$\text{Area}(\text{Meeting}) = 60^2 - 2 \times \left(\frac{1}{2} \times 45 \times 45\right) = 3600 - 2025 = 1575$$
+    6.  $$P(\text{Meet}) = \frac{1575}{3600} = \frac{7}{16} \approx 43.75\%$$
 
 ---
 
-## 8. Vocabulary Glossary
+## 7. Expectation (Mean), Variance & Moments (Weeks 6 & 7)
+
+### Expected Value (Mean $\mu$)
+*(These concepts and examples are based on this [video on Expected Value](https://youtu.be/BH6A5S1HDcU?si=fcaMlOom_tSYGFKY))*
+
+The **Expected Value** ($E[X]$ or $\mu$) is a mathematical tool that determines the average outcome of an uncertain event over the long run. It represents the "center of gravity" of a probability distribution.
+
+Rather than a simple arithmetic average (which assumes equal probability), Expected Value is a **weighted average** where each possible outcome is multiplied by its probability of occurrence:
+*   **For Discrete RVs:**
+    <mark style="background-color: lightblue;">$$E[X] = \sum_x x \cdot p_X(x)$$</mark>
+*   **For Continuous RVs [Post-Midterm]:**
+    <mark style="background-color: lightblue;">$$E[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx$$</mark>
+
+#### Real-World Examples:
+*   <mark style="background-color: lightgreen;">Example 1: Coin Flip Game</mark>
+    *   **Scenario:** Flip a fair coin. Heads wins $\$10$, Tails wins $\$0$.
+    *   **Calculation:**
+        $$E[X] = (\$10 \times 0.5) + (\$0 \times 0.5) = \$5 + \$0 = \mathbf{\$5}$$
+    *   **Long-Run Application:** If played 20 times, your expected total earnings would be:
+        $$20 \times \$5 = \mathbf{\$100}$$
+        *(Since in 20 flips you expect roughly 10 heads $\times \$10 = \$100$).*
+*   <mark style="background-color: lightgreen;">Example 2: Six-Sided Die Game (Negative EV)</mark>
+    *   **Scenario:** Roll a fair six-sided die. Rolling a 1 or 2 wins $\$48$; rolling a 3, 4, 5, or 6 loses $\$30$.
+    *   **Probabilities:** $P(\text{Win } \$48) = 2/6$, and $P(\text{Lose } \$30) = 4/6$.
+    *   **Calculation:**
+        $$E[X] = \left(\$48 \times \frac{2}{6}\right) + \left(-\$30 \times \frac{4}{6}\right) = \$16 - \$20 = \mathbf{-\$4}$$
+    *   **Decision:** Because $E[X] = -\$4$ is negative, playing this game on average costs you $\$4$ per round. You should refuse the game.
+*   <mark style="background-color: lightgreen;">When Expected Value Isn't Enough (Risk Aversion)</mark>
+    *   A positive EV does not always guarantee a smart decision, particularly for single-trial decisions with catastrophic downside.
+    *   *Scenario:* A $\$6,000$ investment offers an $80\%$ chance of losing the entire $\$6,000$, a $10\%$ chance of breaking even ($\$0$ gain), and a $10\%$ chance of gaining $\$200,000$.
+    *   *EV Calculation:*
+        $$E[X] = (\$200{,}000 \times 0.10) + (\$0 \times 0.10) + (-\$6{,}000 \times 0.80) = \$20{,}000 + 0 - \$4{,}800 = \mathbf{+\$15{,}200}$$
+    *   *Insight:* Even though the expected value is strongly positive ($+\$15{,}200$), an individual may reasonably avoid it because an $80\%$ probability of total loss is an unacceptable real-world risk.
+
+#### Expected Value of Functions of an RV (LOTUS)
+The **Law of the Unconscious Statistician (LOTUS)** allows computing the expectation of a transformed variable $Y = g(X)$ directly from the original PMF:
+<mark style="background-color: lightblue;">$$E[g(X)] = \sum_x g(x) \cdot p_X(x)$$</mark>
+*   **Crucial Exam Warning:** $E[g(X)] \neq g(E[X])$ in general! For example, $E[X^2] \neq (E[X])^2$.
+
+#### Linearity of Expectation (The Superpower)
+For any constants $a, b, c$:
+1.  **Single Variable:**
+    $$E[aX + b] = aE[X] + b$$
+2.  **Multiple Variables:**
+    <mark style="background-color: lightblue;">$$E[aX + bY + c] = aE[X] + bE[Y] + c$$</mark>
+*   **Critical Property for Machine Learning & Exams:** Linearity of Expectation holds **even if $X$ and $Y$ are completely dependent on each other**!
+
+---
+
+### Variance and Standard Deviation
+*(These concepts and examples are based on this [video on Standard Deviation](https://youtu.be/MRqtXL2WX2M?si=A-Hl40MMekclb9uI) and this [video on Variance and Standard Deviation Calculations](https://youtu.be/x0rmUXWtSS8?si=2kHBqgV8hCTZSpml))*
+
+While Expected Value gives the central tendency, **Variance** and **Standard Deviation** quantify the amount of variation, dispersion, or spread of values around the mean.
+
+#### 1. Variance ($Var(X)$)
+*   **Conceptual Definition:** The average of the squared differences from the mean $\mu$:
+    <mark style="background-color: lightblue;">$$Var(X) = E\left[(X - \mu)^2\right] = \sum_x (x - \mu)^2 p_X(x)$$</mark>
+    *   *Why squared?* Taking $(X - \mu)$ directly causes positive and negative deviations to cancel to zero. Squaring makes all values non-negative and penalizes large outliers heavily. It also results in squared units (e.g., $\text{kg}^2$).
+*   **The Practical Calculation Shortcut (Use on Exams):**
+    <mark style="background-color: lightblue;">$$Var(X) = E[X^2] - (E[X])^2$$</mark>
+    *   *Proof:* $E[(X - \mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - 2\mu E[X] + \mu^2 = E[X^2] - 2\mu^2 + \mu^2 = E[X^2] - \mu^2$.
+
+#### 2. Sample vs. Population Variance (Bessel's Correction)
+When calculating variance for a set of data, the formula differs slightly based on whether you have the *entire population* or just a *sample*:
+*   **Population Variance:** Divide the sum of squares by the total number of data points, $n$.
+*   **Sample Variance:** Use **Bessel's correction** by dividing the sum of squares by $n - 1$. This corrects for the bias introduced when estimating a population variance from a small sample.
+
+#### 3. Standard Deviation ($\sigma$)
+Because Variance has squared units (e.g., $\text{kg}^2$), it can be difficult to interpret. **Standard Deviation** ($\sigma$) takes the square root to return the spread metric to the original units (e.g., $\text{kg}$):
+<mark style="background-color: lightblue;">$$\sigma = \sqrt{Var(X)}$$</mark>
+*   A **low standard deviation** means data points are clustered closely around the mean.
+*   A **high standard deviation** means data points are spread out over a wide range.
+
+#### Real-World Worked Example: Dog Weights (Sample Variance)
+*   **Scenario:** You measure a sample of **six dogs** with the following weights in kilograms (kg): $10, 12, 13, 17, 20, 24$.
+*   **Step 1 (Calculate Mean):** Sum the values ($106$) and divide by 6. Mean ($\bar{x}$) = **$16$ kg**.
+*   **Step 2 (Find Differences):** Subtract the mean from each data point: $-6, -4, -3, 1, 4, 8$.
+*   **Step 3 (Square Differences):** Square each result to make them positive: $36, 16, 9, 1, 16, 64$.
+*   **Step 4 (Sum of Squares):** Add them up: $36 + 16 + 9 + 1 + 16 + 64 =$ **$142$**.
+*   **Step 5 (Divide for Sample Variance):** Because this is a sample of 6 dogs, divide by $n - 1 = 5$.
+    $$s^2 = 142 / 5 = \mathbf{28.4 \text{ kg}^2}$$
+*   **Step 6 (Standard Deviation):** Take the square root of the variance to return to the original kg units.
+    $$s = \sqrt{28.4} \approx \mathbf{5.3 \text{ kg}}$$
+
+#### 4. The 68-95-99.7 Rule (Empirical Rule)
+For data that is approximately bell-shaped / normally distributed:
+*   **$68\%$** of data falls within $\pm 1\sigma$ of the mean ($\mu \pm \sigma$).
+*   **$95\%$** of data falls within $\pm 2\sigma$ of the mean ($\mu \pm 2\sigma$).
+*   **$99.7\%$** of data falls within $\pm 3\sigma$ of the mean ($\mu \pm 3\sigma$).
+
+#### Further Examples of Standard Deviation:
+*   <mark style="background-color: lightgreen;">Example 1: Wallet Contents</mark>
+    *   Five wallet values: $[\$21, \$50, \$62, \$85, \$90]$.
+    *   Mean payout: $\mu = \$61.60$. Standard deviation: $\sigma = \$28.01$.
+*   <mark style="background-color: lightgreen;">Example 2: Human Height (US Adult Males)</mark>
+    *   Mean height: $\mu = 5'10"$, Standard deviation: $\sigma = 3"$.
+    *   Using the 68-95-99.7 Rule:
+        *   $68\%$ of men are between $5'7"$ and $6'1"$ ($\pm 1\sigma$).
+        *   $95\%$ of men are between $5'4"$ and $6'4"$ ($\pm 2\sigma$).
+        *   An individual who is $6'7"+$ (such as an NBA player like LeBron James) is $\ge 3\sigma$ above the mean, placing them in the extreme upper $0.15\%$ tail of the population.
+*   <mark style="background-color: lightgreen;">Example 3: Particle Physics ("5-Sigma" Standard)</mark>
+    *   In physics, declaring a major scientific discovery (such as confirming the Higgs Boson) requires reaching a **"5-sigma" ($5\sigma$)** threshold.
+    *   A 5-sigma result means there is only a **1 in 3.5 million chance** that the recorded signal is a random statistical fluctuation.
+
+#### 5. Properties of Variance (Classic Exam Traps)
+1.  **Non-negativity:** $Var(X) \ge 0$.
+2.  **Shifting & Scaling Transformations:**
+    <mark style="background-color: lightblue;">$$Var(aX + b) = a^2 Var(X)$$</mark>
+    *   *Adding a constant $b$ does NOT change variance:* If everyone's score is increased by 10 points ($X + 10$), the mean shifts by 10, but the distance between scores remains unchanged ($Var(X + 10) = Var(X)$).
+    *   *Multiplying by $a$ scales variance by $a^2$:* Multiplying values stretches the distance from the mean by $a$, which is squared in the variance formula ($Var(2X) = 4 Var(X)$).
+    *   *For Standard Deviation:* $\sigma_{aX + b} = |a| \sigma_X$.
+
+---
+
+## 8. Common Discrete Random Variable Distributions
+
+### 1. Bernoulli Distribution
+*(These concepts and examples are based on this [video on Bernoulli Distribution](https://youtu.be/nl9WiZMZnYs?si=5qjz8f9JouJHxuPM))*
+
+The **Bernoulli distribution** is the simplest possible probability distribution. It models a **single trial/experiment** that has exactly two mutually exclusive outcomes: Success (represented as $X = 1$) or Failure (represented as $X = 0$).
+*   **Intuition:** Think of it as a single "Yes/No" question (e.g., a single coin flip, a True/False question, or whether a specific candidate wins an election). It is the atomic "building block" of probability.
+*   **The Graph:** Because there are only two possible outcomes, the PMF graph consists of exactly two vertical bars: one at $x=0$ (height of $1-p$) and one at $x=1$ (height of $p$).
+
+**The PMF Formula (A Mathematical Trick):**
+Normally, we just write $P(X = 1) = p$ (probability of success) and $P(X = 0) = 1 - p$ (probability of failure). However, statisticians use a clever math trick to combine these two lines into a single concise equation:
+<mark style="background-color: lightblue;">$$P(X = x) = p^x(1-p)^{1-x} \quad \text{for } x \in \{0, 1\}$$</mark>
+*   *Why it works:* If you plug in $x=1$ (Success), the formula becomes $p^1(1-p)^0 = p \times 1 = p$. If you plug in $x=0$ (Failure), it becomes $p^0(1-p)^1 = 1 \times (1-p) = 1-p$. It's literally just a compact way of writing the two basic probabilities!
+
+**Mean, Variance, and Standard Deviation:**
+*   **Mean ($E[X]$):** $1(p) + 0(1-p) = \mathbf{p}$
+*   **Variance ($Var(X)$):** $E[X^2] - (E[X])^2 = (1^2(p) + 0^2(1-p)) - p^2 = p - p^2 = \mathbf{p(1 - p)}$
+*   **Standard Deviation ($\sigma$):** The square root of the variance: $\mathbf{\sqrt{p(1-p)}}$
+
+**Real-World Example: Sampling for a Lawyer**
+*   **Scenario:** 1 in 200 American adults are lawyers. You randomly sample **exactly one** person.
+*   **Variables:** Success ($X=1$) means the person is a lawyer. Failure ($X=0$) means they aren't. $p = 1/200$, and $1-p = 199/200$.
+*   **The PMF:** $P(X=x) = (1/200)^x(199/200)^{1-x}$.
+
+**The Foundation for Other Distributions:**
+If a Bernoulli trial is a single brick (one coin toss), other distributions are the structures you build out of those bricks:
+*   **Binomial Distribution:** Doing $n$ independent Bernoulli trials and counting the *total number of successes* (e.g., flipping the coin 10 times and counting the heads).
+*   **Geometric Distribution:** Counting how many Bernoulli trials you have to perform *until you finally get your first success* (e.g., keep flipping the coin until it lands on heads).
+
+---
+
+### 2. Binomial Distribution
+*(These concepts and examples are based on this [video on Binomial Distribution Explained (zedstatistics)](https://youtu.be/e04_wUoscBU?si=Fg_Z1ieobEeP-GNA) and this [video on Binomial Distribution Probabilities](https://youtu.be/3PWKQiLK41M?si=LCJOI1t98GidKfiE))*
+
+Models the number of successes $k$ in a fixed series of $n$ independent trials.
+
+#### The 4 Prerequisites for a Binomial Experiment:
+1.  **Two Potential Outcomes:** Each trial results in either Success or Failure (e.g., color blind vs. not color blind).
+2.  **Constant Probability ($p$):** The probability of success $p$ is identical on every trial.
+3.  **Fixed Number of Trials ($n$):** The sample size is predetermined.
+4.  **Independent Trials:** The outcome of any one trial does not affect any other trial.
+
+#### The Binomial PMF Formula:
+<mark style="background-color: lightblue;">$$P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k} \quad \text{for } k = 0, 1, 2, \dots, n$$</mark>
+
+*   **Why Combinations $\binom{n}{k}$ and NOT Permutations ($_nP_k$)?**
+    *   There are $\binom{n}{k}$ distinct sequences that contain exactly $k$ successes and $n-k$ failures.
+    *   Permutations ($_nP_k$) would treat picking "Man #9 then Man #10" as distinct from "Man #10 then Man #9".
+    *   Because the colorblind men are identical, we divide out $k!$ redundant arrangements:
+        $$\frac{_nP_k}{k!} = \binom{n}{k}$$
+
+#### Primary Worked Example: Color Blindness in Men
+*Studies show color blindness affects $8\%$ of men ($p = 0.08$). A random sample of $n = 10$ men is selected.*
+
+1.  **Probability that all 10 men are color blind ($P(X = 10)$):**
+    $$P(X = 10) = 0.08^{10} \approx 1.07 \times 10^{-11}$$
+2.  **Probability that no men are color blind ($P(X = 0)$):**
+    $$P(X = 0) = \binom{10}{0} (0.08)^0 (0.92)^{10} = 0.92^{10} \approx 0.434 \quad (43.4\%)$$
+3.  **Probability that exactly 2 men are color blind ($P(X = 2)$):**
+    $$P(X = 2) = \binom{10}{2} (0.08)^2 (0.92)^8 = 45 \times 0.0064 \times 0.5132 \approx 0.148 \quad (14.8\%)$$
+4.  **Probability that at least 2 men are color blind ($P(X \ge 2)$):**
+    *   Instead of summing $P(X=2) + P(X=3) + \dots + P(X=10)$, use the complement:
+        $$P(X \ge 2) = 1 - [P(X = 0) + P(X = 1)]$$
+    *   $P(X = 1) = \binom{10}{1} (0.08)^1 (0.92)^9 = 10 \times 0.08 \times 0.4722 \approx 0.378$
+    *   $$P(X \ge 2) = 1 - [0.434 + 0.378] = 1 - 0.812 = 0.188 \quad (18.8\%)$$
+
+#### Additional Classic Examples:
+*   **Die Roll Probability:** Rolling a 6-sided die 12 times; probability of rolling a '4' exactly 5 times ($n = 12, k = 5, p = 1/6$):
+    $$P(X = 5) = \binom{12}{5} \left(\frac{1}{6}\right)^5 \left(\frac{5}{6}\right)^7 = 792 \times (1/6)^5 \times (5/6)^7 \approx 0.0284 \quad (2.84\%)$$
+*   **Multiple-Choice Test Guessing:** A test has 20 questions with 4 choices each ($p = 0.25$). Probability of guessing exactly 6 correct:
+    $$P(X = 6) = \binom{20}{6} (0.25)^6 (0.75)^{14} \approx 16.86\%$$
+*   **Inequalities ("Fewer Than"):** $25\%$ of students take algebra. Out of 30 students, probability that fewer than 5 take algebra:
+    $$P(X < 5) = P(X \le 4) = \sum_{k=0}^{4} \binom{30}{k} (0.25)^k (0.75)^{30-k}$$
+
+#### Using Excel for Binomial Calculations:
+Excel provides `=BINOM.DIST(number_s, trials, probability_s, cumulative)`:
+*   **Exact PMF ($P(X = x)$):** Set cumulative to `FALSE`:
+    `=BINOM.DIST(2, 10, 0.08, FALSE)` $\rightarrow 0.148$
+*   **Cumulative CDF ($P(X \le x)$):** Set cumulative to `TRUE`:
+    `=BINOM.DIST(1, 10, 0.08, TRUE)` $\rightarrow 0.812$ ($P(X \le 1)$)
+*   **Calculating "At Least":**
+    `=1 - BINOM.DIST(1, 10, 0.08, TRUE)` $\rightarrow 0.188$ ($P(X \ge 2)$)
+
+#### Mean, Variance, and Standard Deviation of Binomial:
+A Binomial random variable is simply the sum of $n$ independent Bernoulli trials: $X = X_1 + X_2 + \dots + X_n$.
+Using Linearity of Expectation:
+*   **Mean ($\mu$):**
+    <mark style="background-color: lightblue;">$$E[X] = n \cdot p$$</mark>
+    *(Colorblind example: $10 \times 0.08 = 0.8$ men).*
+*   **Variance ($Var(X)$):**
+    <mark style="background-color: lightblue;">$$Var(X) = n \cdot p \cdot (1 - p)$$</mark>
+    *(Colorblind example: $10 \times 0.08 \times 0.92 = 0.736$).*
+*   **Standard Deviation ($\sigma$):**
+    <mark style="background-color: lightblue;">$$\sigma = \sqrt{n \cdot p \cdot (1 - p)}$$</mark>
+    *(Colorblind example: $\sqrt{0.736} \approx 0.858$).*
+
+---
+
+### 3. Geometric Distribution
+*(These concepts and examples are based on this [video on Geometric Distribution](https://youtu.be/d5iAWPnrH6w?si=3tfG2FbpoLeTut2f))*
+
+Models the number of independent Bernoulli trials $x$ needed **until the very first success** occurs.
+*   **Logic:** You get exactly $x - 1$ failures, followed by $1$ success on the $x$-th trial.
+*   **The PMF (Exact Trial):** The probability that the *first* success happens on exactly trial $x$ is:
+    <mark style="background-color: lightblue;">$$P(X = x) = q^{x - 1} \cdot p$$</mark>
+    *(where $p$ is the probability of success, and $q = 1-p$ is the probability of failure).*
+
+**Cumulative Probabilities (CDF):**
+Instead of calculating the sum of individual PMFs (which can be tedious), we use these shortcut formulas:
+*   **Success within the first $x$ trials ($P(X \le x)$):**
+    <mark style="background-color: lightblue;">$$P(X \le x) = 1 - q^x$$</mark>
+*   **Success takes *more than* $x$ trials ($P(X > x)$):**
+    <mark style="background-color: lightblue;">$$P(X > x) = q^x$$</mark>
+
+**Mean, Variance, and Standard Deviation:**
+*   **Mean ($E[X]$):** $E[X] = \frac{1}{p}$
+*   **Variance ($Var(X)$):** $Var(X) = \frac{1-p}{p^2} = \frac{q}{p^2}$
+*   **Standard Deviation ($\sigma$):** $\sqrt{Var(X)}$
+
+#### Real-World Examples:
+1.  **Rolling a Die:** The probability of getting your first '6' exactly on the 4th roll. 
+    *   $p = 1/6$, $q = 5/6$, $x = 4$.
+    *   $P(X = 4) = (5/6)^3 \cdot (1/6) \approx 0.096$ or $9.6\%$.
+2.  **Tire Defects (Expected Value):** If $2\%$ of tires are defective ($p=0.02$), how many tires do you expect to test until you find the first bad one? 
+    *   Mean = $1 / 0.02 = 50$ tires.
+3.  **Tire Defects (Cumulative):** The probability of finding the first defective tire *within the first 5 samples*. 
+    *   $P(X \le 5) = 1 - (0.98)^5 \approx 0.096$ or $9.6\%$.
+4.  **Probability Ranges:** The probability of finding a defect between sample 15 and 30.
+    *   This is the cumulative probability up to 30 minus the cumulative probability up to 14: $P(X \le 30) - P(X \le 14)$.
+    *   Using the formula: $(1 - q^{30}) - (1 - q^{14})$.
+
+---
+
+### 4. Discrete Uniform Distribution
+*(These concepts and examples are based on this [video on Discrete Probability Distributions](https://youtu.be/cyIEhL92wiw?si=pPajTADv2g3_-d0q))*
+
+Models a scenario where a contiguous range of integer values from $a$ to $b$ are all **equally likely**.
+*   **The Graph:** Because all probabilities are equal, the PMF graph looks completely flat across the top.
+*   **Number of possible values ($n$):** $n = b - a + 1$.
+*   **PMF:** $P(X = x) = \frac{1}{n}$ for $x \in \{a, a+1, \dots, b\}$.
+
+**Mean, Variance, and Standard Deviation:**
+Because of the perfect symmetry, you can use shortcut formulas instead of doing long summations:
+*   **Mean ($E[X]$):** The exact midpoint between the lowest and highest values.
+    <mark style="background-color: lightblue;">$$E[X] = \frac{a + b}{2}$$</mark>
+*   **Variance ($Var(X)$):** 
+    <mark style="background-color: lightblue;">$$Var(X) = \frac{n^2 - 1}{12}$$</mark>
+*   **Standard Deviation ($\sigma$):** $\sqrt{\frac{n^2 - 1}{12}}$
+
+#### Real-World Example: Fair vs. Rigged Die
+*   **Fair Die (Uniform):** A normal 6-sided die. Values $a=1$ to $b=6$. Total outcomes $n=6$. The probability of any number is exactly $1/6$.
+    *   Mean: $(1+6)/2 = 3.5$. 
+    *   Variance: $(6^2-1)/12 = 35/12 \approx 2.92$.
+*   **Rigged Die (Non-Uniform):** Imagine the '2' side is erased and painted with a '1' instead. Now there are two '1's and zero '2's.
+    *   $P(X=1) = 2/6 = 1/3$.
+    *   $P(X=2) = 0$.
+    *   The distribution is no longer uniform because the probabilities are not all equal!
+
+---
+
+### 5. Poisson Distribution
+*(These concepts and examples are based on this [video on Poisson Distribution Explained (zedstatistics)](https://youtu.be/jqaXEKV_T_A))*
+
+The **Poisson distribution** models the number of occurrences of an event within a **fixed interval of time or space** (often called a "region of opportunity").
+*   **Intuition:** It is used for counting occurrences over a continuous domain, such as:
+    *   Number of calls received by a call center per hour.
+    *   Number of car accidents on a highway stretch per month.
+    *   Number of flaws per square meter of fabric.
+    *   Number of radioactive particles emitted per second.
+*   **Support / Range ($R_X$):** Unlike the Binomial distribution (which is capped at $n$), the Poisson random variable can theoretically take on **any non-negative integer from 0 to infinity**:
+    $$x \in \{0, 1, 2, 3, \dots, \infty\}$$
+*   **Single Parameter ($\lambda$):** The distribution is completely characterized by just one parameter, **$\lambda$ (lambda)**, which represents the **expected (average) number of occurrences** in the specified interval ($\lambda > 0$).
+
+#### The Poisson PMF Formula:
+The probability that exactly $x$ events occur in the given interval is:
+<mark style="background-color: lightblue;">$$P(X = x) = \frac{\lambda^x e^{-\lambda}}{x!} \quad \text{for } x = 0, 1, 2, \dots$$</mark>
+
+*   **Why is the exponent negative ($-\lambda$)?**
+    Because $e^\lambda > 1$, multiplying by $e^\lambda$ would make probabilities grow uncontrollably. But $e^{-\lambda} = \frac{1}{e^\lambda} < 1$, which acts as the crucial normalizing constant. Using the Taylor series expansion $e^\lambda = \sum_{x=0}^{\infty} \frac{\lambda^x}{x!}$, the sum of all probabilities equals exactly 1:
+    $$\sum_{x=0}^{\infty} P(X = x) = e^{-\lambda} \sum_{x=0}^{\infty} \frac{\lambda^x}{x!} = e^{-\lambda} \cdot e^\lambda = e^0 = 1$$
+
+#### Mean, Variance, and Standard Deviation (The Unique Property):
+The defining signature of a Poisson distribution is that its **Mean and Variance are always identical**:
+*   **Mean ($E[X]$):**
+    <mark style="background-color: lightblue;">$$E[X] = \lambda$$</mark>
+*   **Variance ($Var(X)$):**
+    <mark style="background-color: lightblue;">$$Var(X) = \lambda$$</mark>
+*   **Standard Deviation ($\sigma$):**
+    <mark style="background-color: lightblue;">$$\sigma = \sqrt{\lambda}$$</mark>
+*   **Exam Identification Tip:** If an exam problem says: *"A discrete random variable has a mean of 4 and a variance of 4"*, it is a Poisson distribution!
+
+#### Core Assumptions (Prerequisites for Poisson):
+For a random process to follow a Poisson distribution, three conditions must hold:
+1.  **Constant Rate:** Events occur at a constant average rate $\lambda$ throughout the interval.
+2.  **Independence:** The occurrence of an event in one sub-interval does not influence the occurrence of an event in any other disjoint sub-interval.
+3.  **No Simultaneous Occurrences:** Events occur one at a time. The probability of two or more events occurring at the exact same instant (infinitesimal interval) is zero.
+
+#### The Interval-Scaling Property (Classic Exam Trap!):
+The rate $\lambda$ is strictly tied to the **length of the interval**. If the time window or region changes, **$\lambda$ scales proportionally**:
+*   *Scenario:* A customer support desk receives an average of $6$ calls per hour ($\lambda = 6$ calls/hour).
+    *   For a **30-minute interval** ($0.5$ hour): $\lambda_{\text{new}} = 6 \times 0.5 = \mathbf{3}$ calls.
+    *   For a **2-hour interval**: $\lambda_{\text{new}} = 6 \times 2 = \mathbf{12}$ calls.
+    *   For a **10-minute interval** ($1/6$ hour): $\lambda_{\text{new}} = 6 \times \frac{1}{6} = \mathbf{1}$ call.
+*   *Always adjust $\lambda$ to match the exact time interval asked in the question before plugging into the PMF!*
+
+#### Poisson as an Approximation to the Binomial (Law of Rare Events):
+A Poisson distribution is mathematically the limiting case of a Binomial distribution when:
+1.  The number of trials $n$ is very large ($n \to \infty$).
+2.  The probability of success $p$ is very small ($p \to 0$).
+3.  The product $\lambda = n \cdot p$ remains moderate/constant.
+*   *Rule of Thumb:* Use Poisson to approximate Binomial when $n \ge 20$ (or $100$) and $p \le 0.05$.
+*   *Example:* If 500 people attend a party and the chance of someone sharing your exact birthday is $p = 1/365$, then $n = 500$ is large and $p = 1/365 \approx 0.00274$ is small. Thus, $X \approx \text{Poisson}(\lambda = 500/365 \approx 1.37)$.
+
+#### Step-by-Step Worked Examples:
+
+*   <mark style="background-color: lightgreen;">Example 1: Website Server Crashes ($\lambda = 3$ crashes/day)</mark>
+    *   **Probability of exactly 0 crashes:**
+        $$P(X = 0) = \frac{3^0 e^{-3}}{0!} = \frac{1 \times e^{-3}}{1} = e^{-3} \approx 0.0498 \quad (4.98\%)$$
+    *   **Probability of exactly 2 crashes:**
+        $$P(X = 2) = \frac{3^2 e^{-3}}{2!} = \frac{9 e^{-3}}{2} = 4.5 \times 0.04979 \approx 0.2240 \quad (22.40\%)$$
+    *   **Probability of at least 1 crash ($P(X \ge 1)$):**
+        *Use the complement rule:*
+        $$P(X \ge 1) = 1 - P(X = 0) = 1 - e^{-3} \approx 1 - 0.0498 = \mathbf{0.9502} \quad (95.02\%)$$
+
+*   <mark style="background-color: lightgreen;">Example 2: Time Scaling (Coffee Shop Queue)</mark>
+    *   **Scenario:** A coffee shop receives an average of 12 customers per hour. What is the probability that exactly 2 customers arrive in a 15-minute window?
+    *   **Step 1 (Scale $\lambda$):** 15 minutes is $\frac{15}{60} = 0.25$ hours.
+        $$\lambda_{\text{15-min}} = 12 \times 0.25 = \mathbf{3}$$
+    *   **Step 2 (Apply PMF):**
+        $$P(X = 2) = \frac{3^2 e^{-3}}{2!} = \frac{9 e^{-3}}{2} \approx \mathbf{0.2240} \quad (22.4\%)$$
+
+---
+
+## 9. Vocabulary Glossary
 Here is a master list of all the terminology introduced in this document:
 
 *   **Sample Space ($\Omega$):** The set of all possible outcomes of an experiment.
@@ -550,10 +937,20 @@ Here is a master list of all the terminology introduced in this document:
 *   **Independent Events:** Events where the occurrence of one doesn't change the probability of the other ($P(A|B) = P(A)$).
 *   **Mutually Independent Events:** Three or more events where any combination is independent of the others (e.g., $P(A \cap B \cap C) = P(A)P(B)P(C)$).
 *   **Bayes' Theorem:** A formula used to "reverse" conditional probabilities or update the probability of a hypothesis based on new evidence.
-*   **Law of Total Probability:** A rule that expresses the total probability of an outcome, which can be realized via several distinct events, by combining the probabilities of those distinct events.
-*   **Discrete Random Variable:** A random variable whose possible values are finite or countably infinite (like counting numbers).
-*   **Continuous Random Variable:** A random variable where the data can take infinitely many values in an interval (like time, distance, or weight), meaning the probability of an exact point is zero and area is used instead.
-*   **Probability Mass Function (PMF):** A function $p_X(x) = P(X = x)$ that gives the exact probability that a discrete random variable equals a specific value.
-*   **Probability Density Function (PDF):** A function $f(x)$ describing the probability density of a continuous random variable, where the area under the curve over an interval equals probability ($dP = f(x)dx$).
-*   **Cumulative Distribution Function (CDF):** A function $F(x) = P(X \le x)$ giving the total accumulated probability that a random variable is less than or equal to $x$. Its derivative is the PDF ($f(x) = \frac{dF(x)}{dx}$).
-*   **Expected Value (Mean):** The weighted average of all possible values of a random variable, weighted by their probabilities.
+*   **Law of Total Probability:** A rule that expresses the total probability of an outcome by partitioning the sample space into distinct events.
+*   **Random Variable:** A function that maps outcomes of a random process to real numbers ($\Omega \rightarrow \mathbb{R}$).
+*   **Discrete Random Variable:** A random variable whose possible values are finite or countably infinite integers.
+*   **Continuous Random Variable:** A random variable whose possible values form a continuum/interval, where the probability of an exact point is zero and area represents probability.
+*   **Probability Mass Function (PMF):** A function $p_X(x) = P(X = x)$ giving the exact probability of each outcome for a discrete random variable.
+*   **Probability Density Function (PDF):** A function $f(x)$ for continuous variables where the area under the curve over an interval equals probability ($dP = f(x)dx$).
+*   **Cumulative Distribution Function (CDF):** A function $F(x) = P(X \le x)$ giving the total accumulated probability up to $x$. Its derivative is the PDF ($f(x) = \frac{dF(x)}{dx}$).
+*   **Expected Value (Mean):** The center of gravity or weighted average of all possible values of a random variable.
+*   **Linearity of Expectation:** The fundamental property that $E[aX + bY + c] = aE[X] + bE[Y] + c$, holding true even when $X$ and $Y$ are dependent.
+*   **Variance:** The expected squared deviation from the mean ($Var(X) = E[(X-\mu)^2] = E[X^2] - \mu^2$), measuring spread/dispersion.
+*   **Standard Deviation ($\sigma$):** The square root of variance, measuring spread in the original units of the variable.
+*   **Bernoulli Trial:** An experiment with exactly two possible outcomes (Success or Failure).
+*   **Binomial Distribution:** The distribution of the number of successes in $n$ independent, identical Bernoulli trials.
+*   **Geometric Distribution:** The distribution of the number of trials needed to achieve the first success.
+*   **Poisson Distribution:** The distribution of the number of independent events occurring in a fixed interval of time or space at a constant average rate $\lambda$, where $E[X] = Var(X) = \lambda$.
+
+
