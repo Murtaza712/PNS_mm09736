@@ -1,0 +1,1213 @@
+video link: https://youtu.be/SrEmzdOT65s?si=Cp6NwJZWdaTVBzkX
+
+## Definitions and Key Statistical Concepts
+
+*   **Joint Event**: An event that depends on classes from two different categorical variables (0:58).
+*   **Joint Probability**: The probability of the intersection of two events occurring simultaneously (2:03).
+*   **Marginal Probability (Simple Probability)**: The raw probability of an event occurring, calculated by summing the relevant joint probabilities; it ignores the other variable (2:55).
+*   **Union**: The probability of event A or event B occurring (5:47).
+*   **Conditional Probability**: The probability of an event occurring given that another event has already occurred (7:07).
+*   **Independent Variables**: Two variables are independent if the probability of one is not affected by the condition of the other; formally, the probability of A given B equals the probability of A (10:40).
+
+## HBO Survey Example (Full Detail)
+
+The narrator uses a survey of **500 HBO subscribers** regarding their favorite show (*Game of Thrones*, *Westworld*, or *Other*) and their gender (Male, Female) (0:20).
+
+*   **Joint Distribution Table**: The survey results are mapped into a grid where each cell represents a **joint probability** (e.g., 0.24 represents the probability of being female AND liking *Game of Thrones*) (1:46).
+*   **Marginal Calculation**: To find the probability of just liking *Game of Thrones*, the narrator sums the relevant row (0.4) (3:06).
+*   **Union Example**: To find the probability of a subscriber being male OR preferring *Westworld*, the narrator sums the joint probabilities of the male column and *Westworld* row, subtracting the intersection to avoid double-counting (5:18).
+*   **Conditional Example**: To find the probability that a female subscriber prefers *Game of Thrones*, the narrator divides the joint probability (0.24) by the marginal probability of being female (0.54) (7:50).
+*   **Independence Test**: The narrator compares the probability of liking *Westworld* given someone is female (0.093) to the general marginal probability of liking *Westworld* (0.25) to demonstrate that gender and show choice are dependent (11:02).
+
+## Additional Examples
+
+*   **Coin and Dice**: To illustrate the definition of independent variables, the narrator uses a thought experiment: flipping a coin (heads/tails) and rolling a die (1-6). Because one event does not influence the other, the probability of both occurring is simply the product of their individual marginal probabilities (12:33).
+
+## Formulas, Variables & Derivations
+
+*   **Union of Two Events**: $P(A cup B) = P(A) + P(B) - P(A cap B)$
+    *   Here, $P(A cap B)$ is subtracted because it is counted twice when summing the two marginal probabilities (6:12).
+*   **Conditional Probability**: $P(A|B) = \frac{P(A cap B)}{P(B)}$
+    *   Where $P(A|B)$ is the probability of A given B, $P(A cap B)$ is the joint probability, and $P(B)$ is the probability of the condition (7:23).
+*   **Test for Independence (Method 1)**: $P(A|B) = P(A)$
+    *   If the condition B does not change the probability of A, the variables are independent (10:46).
+*   **Test for Independence (Method 2)**: $P(A cap B) = P(A) \times P(B)$
+    *   If the joint probability equals the product of the marginals, the variables are independent (12:18).
+
+
+0:00 in this video we're looking at basic
+0:02 probability now when I say basic I mean
+0:05 probability as it relates to categorical
+0:07 variables like yes no type variables
+0:10 numerical variables have their own thing
+0:12 going on and I'll deal with that in
+0:13 later videos but we're going to be
+0:15 learning through the use of an example
+0:17 here and here it is the HBO cable
+0:20 network took a survey of 500 subscribers
+0:23 to determine people's favorite show now
+0:25 in this case let's say there were two
+0:28 categorical variables one which is
+0:30 gender male female and the other
+0:33 people's favorite show so I've Got Game
+0:34 of Thrones in there Westworld and I've
+0:36 just combined all the others into this
+0:38 other
+0:39 category I'm thinking that those two are
+0:42 probably the biggest shows on the HBO
+0:44 roster so let's see how this
+0:46 distribution pans out now out of 500
+0:49 subscribers 80 of them are male that
+0:52 like Game of Thrones 120 of them are
+0:55 female that like Game of Thrones etc etc
+0:58 and each of these squares we can call
+1:00 joint events they called Joint events
+1:02 because they depend on classes from two
+1:05 different variables now the other thing
+1:07 to note is that of course they're all
+1:08 going to add up to this total figure in
+1:09 the bottom right but we can also
+1:11 calculate this total column and total
+1:14 row where we just sum up the total
+1:16 number of people that thought Game of
+1:18 Thrones was their favorite show and
+1:20 that's 200 the total number of people
+1:22 that thought Westworld was their
+1:23 favorite show and that's 125 and we can
+1:25 also total up the males and females it's
+1:27 230 males and 270 females
+1:30 but this is not quite a probability
+1:32 distribution just yet so let's see how
+1:34 we get there here's that distribution
+1:36 again and if we divide everything by 500
+1:40 which is the total number of
+1:41 observations we get something which is
+1:43 called a probability distribution so
+1:46 where before we had 120 females who
+1:49 preferred Game of Thrones we now have
+1:52 .24 in that cell because that tells us
+1:54 that 0.24 or 24% of the distribution is
+1:58 defined by that joint event so that's
+2:01 why we call that a joint probability so
+2:03 that 024 is called a joint probability
+2:06 and the way we can write that is to say
+2:07 the probability of female the event
+2:10 where the person is female and the event
+2:12 where the person likes Game of Thrones
+2:14 is
+2:15 0.24 now you might see it written with
+2:17 the word and in between or else you
+2:20 might see it with this sort of upside
+2:22 down U which we're going to call
+2:23 intersection so that's just a fancy
+2:25 statistical term to say the intersection
+2:27 of female and Game of Thrones which
+2:29 which is of course that joint
+2:31 probability now collectively those six
+2:34 cells here form what's called The Joint
+2:36 probability distribution so all of these
+2:38 six cells are going to add up to one
+2:40 because if you think about it everyone
+2:42 in this distribution has to be in one of
+2:44 these cells you have to either be male
+2:46 or female and you have to have selected
+2:49 one of these options so it's no surprise
+2:51 that this should sum up to one now we
+2:54 can also calculate What's called the
+2:55 marginal probability called as such
+2:58 because it's in the marginal
+3:00 another term for this is the simple
+3:02 probability so just be aware of that if
+3:04 you see the phrase simple probability
+3:06 but here this 0.4 refers to the raw
+3:09 probability of someone liking Game of
+3:12 Thrones and I'm sure you can tell it's
+3:14 just the sum of both the male and female
+3:16 joint probabilities now of course this
+3:19 actual column here is called the
+3:21 marginal probability distribution so
+3:23 just like we had a joint probability
+3:25 distribution this one I've highlighted
+3:27 here also sums to one now the thing to
+3:29 appreciate is that this marginal
+3:31 probability distribution completely
+3:33 ignores gender it's as if that variable
+3:35 doesn't exist here but be aware also
+3:37 there's another marginal probability
+3:39 distribution down here and in this case
+3:42 it would ignore the show of preference
+3:44 but again this is going to sum to one
+3:46 because there are 46% males in our
+3:49 sample and 54% females in our sample and
+3:52 we're going to have to sum them up to
+3:53 get 100% so our joint probability
+3:56 distribution adds up to one but so does
+3:58 both of these marginal probability
+4:00 distributions okay so here's a couple of
+4:03 questions for you just using what we've
+4:04 gleaned from the last minute or so you
+4:07 should be able to answer some of these
+4:08 questions what's the probability of an
+4:10 HBO subscriber being male now I think I
+4:12 might have even said this before but the
+4:14 probability of a subscriber being male
+4:16 is purely that marginal probability of
+4:19 the male column so 46 now just be aware
+4:22 of terminology when we say probability
+4:24 we're after a number that's between 0
+4:26 and one sometimes they'll ask about
+4:28 percentages and stuff so you can turn
+4:30 that into a percent but if it just says
+4:32 probability you can just leave it
+4:34 as46 or the next question what's the
+4:36 probability of an HBO subscriber
+4:38 preferring Westworld pretty simple it's
+4:41 just going to be the 0.25 so we can keep
+4:44 going appreciating that those first two
+4:46 questions were asking for marginal or
+4:48 simple probabilities this question asks
+4:51 what's the probability of an HBO
+4:53 subscriber being male and preferring
+4:55 Westworld so that's 0.2 and again you've
+4:58 got that intersection symbol
+5:01 here and here's a slightly different one
+5:03 it says what's the probability of an HBO
+5:05 subscriber being male or preferring
+5:08 Westworld so this is not an intersection
+5:11 it's not a joint probability it actually
+5:13 requires us to think just a little bit
+5:16 and appreciate that to find this we're
+5:18 going to have to sum up all of the joint
+5:21 probabilities where this condition's met
+5:23 so if the subscriber is male we're in
+5:26 this column so we can highlight these
+5:28 three cells green and we can also
+5:30 highlight the Westworld row green as
+5:32 well so in summing up those four cells
+5:35 we're going to be able to get this
+5:36 probability and you can see here I've
+5:38 just gone all of those numbers added
+5:39 together and I've got
+5:41 0.51 now you might have noticed I used
+5:43 this upwards U here and this is the
+5:47 symbol that we call Union so this is the
+5:49 union of two events of someone being
+5:51 male and the event someone liking
+5:54 Westworld now if you've watched a few of
+5:56 my other videos you might know that I
+5:57 tend not to like formulas too much much
+5:59 because formulas tend to stop us
+6:01 thinking and many of them have an
+6:03 intuitive basis to start with and this
+6:05 is true of this formula here which
+6:07 provides us a way of calculating the
+6:10 union between two events so you might
+6:12 have seen this somewhere where we say
+6:14 the union between events A and B is the
+6:17 probability of a plus the probability of
+6:19 B minus the intersection and again you
+6:21 can calculate this one that way if you'd
+6:23 like which is to say that we add up the
+6:26 two marginal probabilities the 0.25 and
+6:29 the
+6:30 46 and then we subtract the joint
+6:33 probability at 0.2 now why do we
+6:35 subtract the 0.2 well if you think about
+6:38 each of these joint probabilities this
+6:40 one here sums up the entire row for
+6:42 Westworld this one here sums up the
+6:45 entire column for male thus we've
+6:47 actually added this cell twice the male
+6:50 Westworld joint probability we've added
+6:53 that twice if we've just simply added
+6:54 these two blue cells together so we have
+6:57 to subtract one of those away again to
+6:59 be left with 0.51 which is no surprise
+7:02 the same answer we got using the other
+7:04 method this brings us to the next and
+7:07 more tricky type of probability which is
+7:09 called a conditional probability so here
+7:11 I've given you a question again as an
+7:13 example no just got an HBO subscription
+7:17 what's the chance that her favorite show
+7:18 will be Game of Thrones now again you
+7:21 might have seen a formula that looks a
+7:23 little bit like this where this says the
+7:25 probability of event a given event b
+7:29 equals the intersection of the two
+7:30 events divided by the probability of the
+7:34 condition so in this case what we do is
+7:37 we basically focus on the part of this
+7:39 distribution which is of interest and
+7:42 because non is female we can ignore the
+7:44 rest of the table completely we're only
+7:47 really considering this column here we
+7:50 take the joint probability which is .24
+7:53 and we divide by the probability of the
+7:56 condition which is 0 54 now the
+7:58 condition was that she was email that
+8:00 was given in the question so we can
+8:02 calculate this as24
+8:05 /54 which is 44444 which is about 49ths
+8:09 but that's okay we can leave it as a
+8:11 four decimal place probability here so
+8:14 what we can do now is create for
+8:16 ourselves a new column which is the
+8:18 probability of preferring each of these
+8:20 shows given someone is female so we just
+8:24 got 4444 for Game of Thrones here now we
+8:27 can do the same for Westworld and other
+8:31 we find here what's called the
+8:32 conditional probability distribution so
+8:35 this is the probability distribution of
+8:37 preferring various shows given someone
+8:40 as female and again because it's a
+8:43 complete probability distribution it's
+8:45 going to add up to one and indeed this
+8:48 does so what what we can do now is we
+8:51 can compare this conditional probability
+8:53 distribution to the marginal probability
+8:57 distribution that's this one here the
+8:58 original Total
+9:00 distribution and we can see that if we
+9:03 don't take sex into account 40% of
+9:06 people like Game of Thrones 25% like
+9:08 Westworld 35% like other shows but when
+9:11 we take gender into account these change
+9:14 a little bit so for females you can see
+9:16 that they're more likely to like Game of
+9:18 Thrones than the general population
+9:20 they're less likely to like Westworld
+9:22 than the general population and they're
+9:24 a little bit more likely to like other
+9:26 shows than the general population as
+9:28 well and we can actually use this to
+9:30 assess whether the two variables gender
+9:33 and show Choice are independent but
+9:36 before we do just appreciate that we can
+9:37 also go the other way with our
+9:39 conditions so for example if I asked you
+9:42 given that a subscriber's favorite show
+9:44 is Westworld what's the probability that
+9:46 they are male in this case the condition
+9:49 is that they like Westworld so our
+9:52 condition is actually an entire row so
+9:55 much like last time we can block out the
+9:57 rest of the table that doesn't coincide
+9:59 with Westworld and we can just focus on
+10:01 this row and the probability of being
+10:03 male is that 0.2 which is the joint
+10:06 probability divided by the probability
+10:09 of the condition
+10:10 0.25 so if you do that you get 0.8 and
+10:13 that's the probability of being male if
+10:16 you prefer Westworld in other words 80%
+10:18 of people that watch Westworld are
+10:20 males so this leads us to the topic of
+10:23 Independence between the variables
+10:29 now we've already touched on it just
+10:31 briefly to show that females have a
+10:33 little bit of a different preference of
+10:35 their HBO shows to the general
+10:38 population but the strict definition of
+10:40 independence actually has two different
+10:43 approaches the first of which says that
+10:46 if the two variables are independent
+10:48 then the probability of a given B is
+10:50 just equal to the probability of a
+10:53 another way to think of this is that
+10:55 imposing the condition B doesn't
+10:58 actually affect
+10:59 the probability of a at all so in our
+11:02 case we found the probability of liking
+11:05 Westworld if you're female is 0.093 we
+11:09 found that from our conditional
+11:11 probability distribution earlier but the
+11:14 probability of just preferring Westworld
+11:16 straight up is 0.25 it's in that final
+11:19 value here it's in that marginal value
+11:22 here so if these two variables gender
+11:25 and choice of HBO shows were independent
+11:29 these two values should be equal
+11:32 therefore the variables are not
+11:33 independent as 0.093 does not equal 0.25
+11:38 so clearly gender does influence the HBO
+11:41 show that they prefer now it's probably
+11:44 worth mentioning that because this is a
+11:46 sample you would never expect for these
+11:49 values to be exactly equal because we
+11:52 know in a sample there's going to be
+11:53 some random variation and even if the
+11:56 variables were completely independent
+11:59 they these two probabilities wouldn't be
+12:01 perfectly equal but in this case I think
+12:05 it's quite clear that they're very
+12:06 different probabilities one's 25% and
+12:09 one's 9% so I think we're quite safe to
+12:12 say these variables are not
+12:14 independent now as I said there were two
+12:16 approaches for assessing Independence
+12:18 and this one says the probability of a
+12:21 union B is equal to the two marginal
+12:24 probabilities multiplied together now
+12:26 I've got a feeling you might understand
+12:28 this equation in l so if I can take you
+12:30 away from this example just for a second
+12:33 say I flipped a coin in one hand and I
+12:35 rolled a dice in the other hand and I
+12:38 said I'm going to give you a hundred
+12:39 bucks if I roll a six and I flip aead if
+12:44 both of those events occur I'll give you
+12:46 a 100 bucks and I asked you what is the
+12:47 probability of me giving you a 100 bucks
+12:51 you probably say well that's one in 12
+12:54 right because you've got half a chance
+12:55 of getting ahead and a sixth of a chance
+12:58 of rolling a six
+12:59 so you multiply them together you're
+13:01 going to do the probability of a getting
+13:03 ahead times the probability of B and
+13:05 you're going to get that joint
+13:07 probability but the only reason you can
+13:09 do that is because rolling a dice and
+13:12 flipping a coin are completely
+13:13 independent variables it's not as if
+13:16 rolling a six influences the chance of
+13:18 getting ahead right so as I said you can
+13:21 kind of intuitively understand this
+13:23 formula but what that implies for our
+13:25 distribution here is that if we were to
+13:27 look at the intersection between
+13:30 Westworld and female we get
+13:32 0.05 and if you multiply the two
+13:34 marginal values together the
+13:37 0.54 and the
+13:38 0.25 you get
+13:41 0.14 so again these two values are not
+13:44 the same so we can say they're not
+13:46 independent
+13:48 variables which is no surprise because
+13:50 we just showed this using the other
+13:51 approach so either of these approaches
+13:53 would be fine to show that people's
+13:57 preference of HBO shows does depend on
+14:01 their gender all right so that's a wrap
+14:04 we've dealt with joint probabilities
+14:06 marginal probabilities conditional
+14:08 probabilities and we've also looked at
+14:10 how to test for Independence between two
+14:13 categorical variables now if you like
+14:16 the video I got plenty more you can
+14:17 check them out on the YouTube channel or
+14:20 heading to my website Zed statistics.com
+14:22 and if you've got any ideas feel free to
+14:24 get in touch adios
+
+
+
+
+
+
+
+
+video link: https://youtu.be/vJAG4EzSQZA?si=01X8hHRvHUbBV4vC
+## Conditional Expectation and the Total Expectation Theorem (0:00-6:10)
+
+### Definitions
+
+*   **Conditional Expectation:** Given a random variable $Y$ takes on a specific value $y$, the conditional expectation of $X$ given $Y=y$ is the usual expectation calculated using the relevant conditional probability mass function (PMF): $E[X | Y=y] = sum_x x cdot P(X=x | Y=y)$. (0:55)
+*   **Scenario:** A partition of the sample space into disjoint events (e.g., the event that $Y$ takes on a specific value $y_i$). (2:09)
+
+### Formulas, Variables & Derivations
+
+*   **Total Probability Theorem:** Used to find the probability of $X=x$ by partitioning the sample space into scenarios based on $Y=y_i$:
+    $$P(X=x) = sum_i P(Y=y_i) cdot P(X=x | Y=y_i)$$
+    (3:11)
+*   **Total Expectation Theorem:** Used to find the expected value of $X$ by weighting conditional expectations across all disjoint scenarios of $Y$:
+    $$E[X] = sum_i P(Y=y_i) cdot E[X | Y=y_i]$$
+    (4:09)
+
+### Mathematical Nuances
+
+*   **Finite vs. Infinite Sets:** While the theorems are derived using a finite partition of the sample space, they remain valid for discrete but infinite sets (e.g., $Y$ ranging over all integers), provided $X$ has a well-defined expectation. (4:42-5:34)
+
+### Key Concepts
+
+*   **Divide and Conquer:** The Total Expectation Theorem serves as a powerful tool for breaking down complicated models into simpler, conditional components. (6:02)
+0:00 we will now talk about conditional
+0:03 expectations of one random variable
+0:04 given another as we will see there will
+0:08 be nothing new here except for all the
+0:11 results but given a new notation any PMF
+0:15 has an Associated expectation and so
+0:18 conditional pmfs also have associated
+0:22 expectations which we call conditional
+0:25 expectations we have already seen them
+0:27 for the case where we conditioned on an
+0:29 event a the case where we conditioned on
+0:33 random variables is exactly the same we
+0:37 let the event a be the event that Y
+0:41 takes on a specific value and then we
+0:46 calculate the expectation using the
+0:50 relevant conditional probabilities those
+0:52 that are given by the conditional pmf so
+0:55 the conditional expectation of x given
+0:57 that Y takes on a certain value is
+1:00 defined as the usual expectation except
+1:04 that we use the conditional
+1:06 probabilities that apply given that Y
+1:09 takes on a specific value little Y
+1:13 recall now the expected value rule for
+1:16 ordinary expectations and also the
+1:20 expected value rule for conditional
+1:22 expectations given an event something
+1:24 that we have already seen now in PMF
+1:28 notation the expected value rule takes a
+1:32 similar form the event a is replaced by
+1:37 the specific event that Y takes on a
+1:39 specific value and in that case the
+1:43 conditional pmf given the event a is
+1:45 just the conditional pmf given that
+1:48 random variable Y takes on a specific
+1:51 value little Y for the case where we
+1:55 conditioned on events we also developed
+1:58 a version of the total probability
+2:00 theorem and the total expectation
+2:02 theorem we can do the same when we
+2:07 conditioned on random variables so
+2:09 suppose that the sample space has been
+2:11 partitioned into
+2:13 and disjoint scenarios the total
+2:16 probability theorem tells us that the
+2:18 probability of the event the event that
+2:22 random variable X takes on value little
+2:26 X can be found by taking the
+2:29 probabilities of this event under each
+2:32 one of the possible scenarios and then
+2:35 weighing those probabilities according
+2:38 to the probabilities of the different
+2:40 scenarios now suppose that we are
+2:45 dealing with a random variable that
+2:47 takes values in a set consisting of n
+2:52 elements and let us consider scenarios
+3:00 AI the eigth scenario is the event that
+3:04 the random variable Y takes on the eyes
+3:06 possible value we can apply the total
+3:11 probability theorem to this situation we
+3:14 can find the probability that the random
+3:16 variable X takes on a certain value
+3:18 little X by considering the probability
+3:22 of this event happening under each
+3:24 possible scenario where a scenario is
+3:27 that Y took on a specific value and then
+3:32 weigh those probabilities according to
+3:35 the probabilities of the different
+3:37 scenarios the story with the total
+3:41 expectation theorem is similar we know
+3:45 that an expectation can be found by
+3:48 taking the conditional expectations
+3:49 under each one of the scenarios and
+3:52 weighing them according to the
+3:54 probabilities of the different scenarios
+3:57 again let the event that Y takes on a
+4:01 specific value be a different scenario
+4:04 and with this correspondence we obtain
+4:09 the following version of the total
+4:12 expectation theorem we have a sum of
+4:16 different terms and each term in the sum
+4:18 is the probability of a given scenario
+4:21 times the expected value of X under this
+4:25 part
+4:25 stickler scenario at this point I have
+4:29 to add the comment of a more
+4:31 mathematical flavor we have been talking
+4:34 about the partition of the sample space
+4:36 into finitely many scenarios but if Y
+4:42 takes on values ended in a discrete but
+4:45 infinite set for example if Y can take
+4:48 on any integer value the argument that
+4:52 we have given is not quite complete
+4:55 fortunately the total probability
+4:58 theorem and the total expectation
+5:00 theorem they both remain true even for
+5:05 the case where Y ranges over an infinite
+5:08 set as long as the random variable X has
+5:13 a well-defined expectation for the total
+5:17 probability theorem the proof for the
+5:19 general case can be carried out without
+5:22 a lot of difficulty just using the
+5:25 countable additivity axiom however for
+5:28 the total expectation theorem it takes
+5:31 some harder mathematical work and this
+5:34 is beyond our scope but we will just
+5:37 take this fact for granted that the
+5:39 total expectation theorem carries over
+5:42 to the case where we are adding over an
+5:44 infinite sequence of possible values of
+5:47 Y in the rest of the course we will
+5:50 often use the total expectation theorem
+5:53 including in cases where Y ranges over
+5:56 an infinite discrete set in fact we will
+5:59 see that this theorem is an extremely
+6:02 useful tool that can be used to divide
+6:05 and conquer complicated models
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vide link: https://youtu.be/T_Q3M_HV94w?si=OQLU3MDDFFRP41H-
+## Conditional Probability Mass Functions (PMFs)
+
+### Definitions
+
+*   **Conditional PMF of X given Y:** For a random variable $X$ conditioned on the event that another random variable $Y$ takes a specific value $y$, the conditional PMF is defined as the ratio of the joint PMF to the marginal PMF of the conditioning event (1:28).
+
+### Formulas
+
+*   **Definition of Conditional PMF:**
+    $$p_{X|Y}(x|y) = \frac{p_{X,Y}(x,y)}{p_Y(y)}$$
+    *   This is defined only for values of $y$ where $p_Y(y) > 0$ (1:45).
+*   **Multiplication Rule (Two Variables):**
+    $$p_{X,Y}(x,y) = p_Y(y) cdot p_{X|Y}(x|y)$$
+    *   This allows for specifying a probability model by defining the marginal distribution of $Y$ and the conditional PMF of $X$ given $Y$ (7:05).
+*   **General Multiplication Rule (Three Variables):**
+    $$p_{X,Y,Z}(x,y,z) = p_X(x) cdot p_{Y|X}(y|x) cdot p_{Z|X,Y}(z|x,y)$$
+    *   Represents the probability of the simultaneous occurrence of three events as a product of individual and conditional probabilities (10:23).
+
+### Example: Computing Conditional PMF
+
+*   **Scenario:** Given a joint PMF table, calculate the conditional PMF of $X$ given $Y=2$ (3:21).
+*   **Steps:**
+    1.  **Identify the conditioning event:** Find the row in the joint PMF table corresponding to $Y=2$ (3:28).
+    2.  **Calculate the marginal PMF:** Sum the entries in the row to find $p_Y(2)$. In the example, the sum is $5/20$ (3:45).
+    3.  **Normalize:** Divide each entry in the row by $p_Y(2)$ so that the resulting values sum to $1$. For instance, the probability of $X=2$ given $Y=2$ becomes $(1/20) / (5/20) = 1/5$ (4:24).
+    4.  **Visualization:** The resulting conditional PMF preserves the proportions of the original joint PMF slice but is scaled (renormalized) to total $1$ (5:59).
+
+0:00 we have already introduced the concept
+0:02 of the conditional pmf of a random
+0:04 variable X given an event a we will now
+0:08 consider the case where we condition on
+0:11 the value of another random variable Y
+0:13 that is we let a be the event that some
+0:19 other random variable Y takes on a
+0:22 specific value little Y in this case we
+0:27 are talking about the conditional
+0:28 probability of the form shown here to
+0:32 the conditional probability that X takes
+0:35 on a specific value given that the
+0:37 random variable Y takes on another
+0:39 specific value and we use this notation
+0:43 to indicate those conditional
+0:46 probabilities as usual the subscripts
+0:50 indicate the situation that we're
+0:52 dealing with that is were dealing with a
+0:55 distribution of the random variable X
+0:57 and were conditioning on values of the
+0:59 other random variable Y using the
+1:02 definition now of conditional
+1:04 probabilities this can be written as the
+1:07 probability that both events happen
+1:12 divided by the probability of the
+1:15 conditioning event we can turn this
+1:22 expression into PMF notation and this
+1:25 leads us to this definition of
+1:28 conditional pmfs the conditional PMF is
+1:31 defined to be the ratio of the joint PMF
+1:35 this is the probability that we have
+1:37 here by the corresponding marginal PMF
+1:41 and this is the probability that we have
+1:43 here now remember that conditional
+1:45 probabilities are only defined when the
+1:47 conditioning event has a positive
+1:50 probability when this denominator is
+1:52 positive similarly the conditional PMF
+1:55 will only be defined for those little Y
+1:58 that have positive probability of
+2:01 occurring now the conditional PMF is a
+2:06 function of two arguments little X and
+2:09 little Y but the best way of thinking
+2:12 about the conditional PMF
+2:13 is that we fix the value little why and
+2:19 then view this expression here as a
+2:22 function of X as a function of X it
+2:26 gives us the probabilities of the
+2:28 different X's that may occur in the
+2:30 conditional universe and these
+2:33 probabilities must of course sum to one
+2:36 again we're keeping Y fixed we live in a
+2:40 conditional universe where Y takes on a
+2:42 specific value and here we have the
+2:44 probabilities of the different X's in
+2:46 that universe and these sum to one note
+2:52 that if we change the value of little Y
+2:55 we will of course get a different
+2:57 conditional pmf for the random variable
+2:59 X so what we're really dealing with in
+3:03 this instance is that we have a family
+3:06 of conditional pmfs one conditional pmf
+3:10 for every possible value of little Y and
+3:13 for every possible value of little Y we
+3:15 have a legitimate PMF whose values add
+3:18 to one let us look at an example
+3:21 consider the joint PMF given in this
+3:24 table
+3:24 let us condition on the event that Y is
+3:28 equal to two which corresponds to this
+3:33 row in the diagram we have well we need
+3:39 to know the value of the marginal at
+3:43 this point so we start by calculating
+3:45 the probability of y at value two and
+3:50 this is found by adding the entries in
+3:53 this row of the table and we find that
+3:56 this is 5 over 20 then we can start
+3:59 calculating entries of the conditional
+4:02 pmf so for example the probability that
+4:07 X takes on the value of 1 even that Y
+4:11 takes the value of 2 it is going to be
+4:15 this entry which is 0 divided by 5 over
+4:19 20 which gives us 0
+4:21 we can find the next entry the
+4:24 probability of X taking the value of 2
+4:29 given that Y takes the value of 2 will
+4:32 be this entry 1 over 20 divided by 5
+4:36 over 20 so it's going to be 1/5 and we
+4:43 can continue with the other two entries
+4:45 and we can actually even plot the result
+4:50 once we are done and what we have is
+4:55 that at 1 we have a probability of 0 at
+4:59 2 we have a probability of 1/5 at 3 we
+5:10 have a probability of 3 over 20 divided
+5:13 by 5 of over 20 which is 3/5 and at 4 we
+5:20 have again the probability of 1/5 so
+5:26 what we have plotted here is the
+5:29 conditional PMF it's a PMF in the
+5:32 variable X who are X ranges over the
+5:36 possible values but where we have fixed
+5:38 the value of y to be equal to 2 now we
+5:43 could have found this conditional PMF
+5:45 even faster without doing any divisions
+5:48 by following the intuitive argument that
+5:51 we have used before we live in this
+5:54 conditional universe we have conditioned
+5:56 on Y being equal to 2 the conditional
+5:59 probabilities will have the same
+6:02 proportions as the original
+6:04 probabilities except that they need to
+6:06 be scaled so that they add to 1 so they
+6:09 should be in the proportions of 0 1 3 1
+6:12 and 4 these to add to 1 we need to put
+6:16 everywhere a denominator of 5 so the
+6:19 proportions are indeed 0 1 3 & 1
+6:24 pictorially the conditional PMF has the
+6:29 same form as the corresponding slice of
+6:32 the joint PMF
+6:34 except again that the entries of that
+6:37 slice are renormalized so that the
+6:40 entries add to one and finally an
+6:43 observation we can take the definition
+6:46 of the conditional pmf and turn it
+6:49 around by moving the denominator to the
+6:52 other side and obtain a formula which is
+6:55 a version of the multiplication rule the
+6:59 probability that X takes a value little
+7:02 X and Y takes a value little Y is the
+7:05 product of the probability that Y takes
+7:08 this particular value times the
+7:10 conditional probability that X takes on
+7:13 the particular value little X given that
+7:16 Y takes on the particular value little Y
+7:19 we also have a symmetrical relationship
+7:22 if we interchange the roles of x and y
+7:26 as we discussed earlier in this course
+7:29 the multiplication rule can be used to
+7:31 specify probability models one way of
+7:34 modeling two random variables is by
+7:36 specifying the joint PMF but we now have
+7:40 an alternative indirect way using the
+7:43 multiplication rule we can first specify
+7:46 the distribution of Y and then specify
+7:50 the conditional PMF of X for any given
+7:54 value of little Y and this completely
+7:57 determines the joint PMF and so we have
+8:00 a full probability model we can also
+8:05 provide similar definitions of
+8:06 conditional pmfs for the case where
+8:09 we're dealing with more than two random
+8:10 variables in this case notation is
+8:13 pretty self-explanatory by looking at
+8:17 this expression here you can probably
+8:20 guess that this stands for the
+8:24 probability that random variable X takes
+8:27 on a specific value conditional on the
+8:31 random variables y and z taking on some
+8:36 other specific values using the
+8:39 definition of conditional probabilities
+8:40 this is the probability that all events
+8:44 happen the
+8:46 provided by the probability of the
+8:49 conditioning event which in our case is
+8:52 the event that Y takes on a specific
+8:55 value and simultaneously Z takes and
+8:59 other specific values in PMF notation
+9:02 this is the ratio of the joint PMF of
+9:06 the three random variables together
+9:09 divided by the joint PMF of the two
+9:13 random variables Y and Z as another
+9:19 example we could have an expression like
+9:22 this which again stands for the
+9:26 probability that these two random
+9:28 variables take on specific values
+9:34 conditional on this random variable
+9:36 taking on another value finally we can
+9:42 have versions of the multiplication rule
+9:44 for the case where we're dealing with
+9:46 more than two random variables recall
+9:49 the usual multiplication rule for three
+9:52 events happening simultaneously let us
+9:55 apply this multiplication rule for the
+9:57 case where the event a stands for the
+10:02 event that the random variable X takes
+10:04 on a specific value let B be the event
+10:07 that Y takes on a specific value and C
+10:11 be the event that random variable Z
+10:14 takes on a specific value then we can
+10:18 take this relation the multiplication
+10:20 rule and translate it into PMF notation
+10:23 the probability that all three events
+10:25 happen is equal to the product of the
+10:28 probability that the first event happens
+10:31 then we have the conditional probability
+10:34 that the second event happens given that
+10:37 the first happened times the conditional
+10:40 probability that the third event happens
+10:42 this one given that the first two events
+10:45 have happened
+
+
+
+
+
+
+
+
+
+video link: https://youtu.be/F6H50Hbulbk?si=Yz4Q1jbJkZxwYNhq
+## Definitions and Formulas for Independence of Random Variables (0:00-5:08)
+
+### Definitions
+
+*   **Independence of Random Variables:** Two random variables $X$ and $Y$ are independent if their joint probability mass function (PMF) factors into the product of their individual marginal PMFs for all possible values of $x$ and $y$.
+*   **Generalization to Events:** Independence is defined by the condition that the joint probability of events related to $X$ and $Y$ occurring is the product of their individual probabilities: $P(X in A, Y in B) = P(X in A)P(Y in B)$ for any sets $A$ and $B$.
+
+### Formulas
+
+*   **Condition for Independence (Discrete Case):**
+    $$p_{X,Y}(x,y) = p_X(x)p_Y(y) quad \text{for all } x, y$$
+*   **Alternative Expression via Cumulative Distribution Function (CDF):**
+    $$F_{X,Y}(x,y) = F_X(x)F_Y(y) quad \text{for all } x, y$$
+*   **Expectation of a Product of Independent Random Variables:**
+    $$E[XY] = E[X]E[Y]$$
+*   **Variance of a Sum of Independent Random Variables:**
+    $$\text{var}(X+Y) = \text{var}(X) + \text{var}(Y)$$
+
+
+
+
+
+
+
+
+video link:https://youtu.be/7nu97OYx4X4?si=tpdD5--Onfh2Sf6N
+## Joint PMF Definitions and Formulas (0:00-10:11)
+
+### Definitions
+
+*   **Joint PMF:** The probability that random variables $X$ and $Y$ take on specific values $x$ and $y$ simultaneously, denoted as $p_{X,Y}(x, y) = P(X = x, Y = y)$. (1:24-1:56)
+*   **Marginal PMF:** The individual probability distribution of a single random variable derived from the joint PMF by summing over all possible values of the other random variable(s). (3:02-4:40)
+
+### Key Formulas & Mathematical Rules
+
+*   **Joint PMF Property (Normalization):** The sum of the joint probabilities over all possible pairs $(x, y)$ must equal 1.
+    $$sum_{x} sum_{y} p_{X,Y}(x, y) = 1$$ (2:42-3:01)
+*   **Finding Marginal PMF (for two variables):**
+    *   To find $p_X(x)$: $p_X(x) = sum_{y} p_{X,Y}(x, y)$ (3:36-4:25)
+    *   To find $p_Y(y)$: $p_Y(y) = sum_{x} p_{X,Y}(x, y)$ (4:37-5:17)
+*   **Joint PMF for Multiple Variables (Three-Variable Case):** Defined as $p_{X,Y,Z}(x, y, z) = P(X=x, Y=y, Z=z)$, where the sum over all triples equals 1. (6:01-6:59)
+*   **Marginalization for Multiple Variables:**
+    *   For one variable: $p_X(x) = sum_{y} sum_{z} p_{X,Y,Z}(x, y, z)$ (7:00-7:29)
+    *   For two variables: $p_{X,Y}(x, y) = sum_{z} p_{X,Y,Z}(x, y, z)$ (7:30-8:02)
+*   **Expected Value Rule for Functions of Two Random Variables:** If $Z = g(X, Y)$, the expected value is the sum over all pairs weighted by their joint probabilities:
+    $$E[g(X, Y)] = sum_{x} sum_{y} g(x, y) p_{X,Y}(x, y)$$ (9:27-10:11)
+0:00 by this point we have discussed pretty
+0:03 much everything that is to be said about
+0:05 individual discrete random variables now
+0:09 let us move to the case where we're
+0:11 dealing with multiple discrete random
+0:13 variables simultaneously and talk about
+0:16 their distribution as we will see their
+0:18 distribution is characterized by a so
+0:20 called joint PMF so suppose that we have
+0:24 a probabilistic model and on that model
+0:26 we have defined two random variables x
+0:29 and y and that we have available their
+0:32 individual pmf's these pmf's tell us
+0:37 about one random variable at a time this
+0:41 tells us about X this tells us about Y
+0:43 but they do not give us any information
+0:45 about how the two random variables are
+0:48 related to each other for example if you
+0:51 wish to answer this question whether the
+0:55 numerical values that the two random
+0:57 variables happen to be equal and what is
+1:00 the probability of that event you will
+1:02 not be able to answer this question if
+1:04 you only know the two individual pmf's
+1:06 in order to be able to answer a question
+1:09 of this type we will need information
+1:11 that tells us what values of X tend to
+1:15 occur together with what values of Y and
+1:18 this information is captured in the so
+1:20 called joint PMF so the joint PMF is
+1:24 nothing but a piece of notation for an
+1:27 object that's familiar this is the
+1:29 probability that when we carry out the
+1:31 experiment we happen to see random
+1:34 variable X take on value little X and
+1:37 simultaneously see that random variable
+1:40 Y takes on a value little Y this
+1:43 quantity we indicated with this notation
+1:45 the letter little P stands for a PMF the
+1:49 subscripts tell us which random
+1:52 variables were talking about and finally
+1:54 this is a function of two arguments
+1:56 depending on what pair X Y were
+2:00 interested in we are going to get a
+2:02 different numerical value for this
+2:04 probability as an example of a joint PMF
+2:07 in which the two random variables take
+2:09 values in a finite set
+2:11 we might be given a table
+2:13 of this forum using this table we can
+2:16 answer questions such as the following
+2:18 what is the probability that the random
+2:20 variables x and y simultaneously take
+2:23 the values let us say 1 & 3 then we look
+2:28 up in this table and we identify that
+2:30 it's this probability X takes the value
+2:32 of 1 and Y takes the value of 3 and
+2:35 according to this table the answer would
+2:38 be 2 over 20 now something to notice
+2:42 about joint pmfs when you add over all
+2:45 possible pairs x and y this exhausts all
+2:49 the possibilities and therefore these
+2:52 probabilities should add to 1 in terms
+2:55 of this table all the entries that we
+2:57 have here should add to 1 now once we
+3:02 have in our hands the joint PMF we can
+3:05 use it to find the individual PMF of the
+3:09 random variables x and y and these
+3:12 individual pmfs are called the marginal
+3:15 pmfs how do we find them well the joint
+3:24 PMF tells us everything there is to be
+3:27 known about the two random variables so
+3:29 it should contain enough information for
+3:31 us to answer any kind of question so for
+3:36 example if we wish to find the
+3:39 probability that the random variable X
+3:41 takes the value of 4 we look at all
+3:45 possible outcomes in which X is equal to
+3:49 4 and add the probabilities of these
+3:52 outcomes so in this case it would be 1
+3:55 over 20 plus 2 over 20 so what we're
+4:01 doing is that if we're interested in a
+4:04 specific value of x the probability that
+4:08 X takes on a specific value we consider
+4:12 all possible pairs associated with that
+4:16 fixed X that is we are considering one
+4:19 column of the PMF and we're adding the
+4:22 corresponding probabilities so to find
+4:25 this entry here
+4:27 say px of three what we need is to add
+4:32 these terms on that column similarly we
+4:37 can find the PMF of the random variable
+4:40 Y so for example the probability that
+4:45 the random variable Y takes on a value
+4:48 of let's say 2 can be found as follows
+4:54 you look at the probabilities of all
+4:57 pairs associated with this specific Y
+5:00 and you add over the XS so we fix y to
+5:05 have a value of 2 and we add over all
+5:08 pairs in this row so in this example it
+5:11 would be 1 over 20 plus 3 over 20 plus 1
+5:16 over 20 finally notice that we are able
+5:20 to answer the question that got us
+5:23 motivated in the first place to find the
+5:26 probability that the two random
+5:27 variables take equal values we look at
+5:30 all the outcomes for which the two
+5:32 random variables indeed take the same
+5:34 numerical values and we see that it is
+5:37 this event in this diagram and the
+5:40 probability of that event is going to be
+5:43 2 over 20 so in general once we have
+5:47 available the joint PMF of two random
+5:49 variables we will be able to answer any
+5:52 questions regarding probabilities of
+5:55 events that have to do with these two
+5:57 random variables how about more than two
+6:01 random variables it's just a matter of
+6:04 notation for example we can define the
+6:06 joint PMF of three random variables and
+6:09 you can use the same idea for the joint
+6:11 PMF let's say of five or ten or n random
+6:14 variables let's just look at the
+6:16 notation for three there is a
+6:18 well-defined probability that when we
+6:20 carry out the experiment XY and Z as
+6:23 random variables take on certain
+6:25 specific values so we look at the
+6:28 probability of that particular triple
+6:30 and we indicate that probability with
+6:32 this notation once more the subscripts
+6:36 tell us which random variables were
+6:38 talking about and the PMF of course
+6:41 is going to be a function of this triple
+6:43 little X little Y little Z because each
+6:46 triple in general should have a
+6:48 different probability of course
+6:50 probabilities must always add to one so
+6:53 when we consider all triples and we add
+6:55 their corresponding probabilities we
+6:57 should get one and finally once we have
+7:00 the joint PMF we can again recover the
+7:03 marginal PMF for example to find the
+7:06 probability that the random variable
+7:07 takes on a specific value little X we
+7:11 consider all possible triples in which
+7:14 the random variable indeed takes that
+7:17 value little X and then we sum over all
+7:22 the possible Y's and Z's that could go
+7:26 together with this particular X in the
+7:30 same spirit the to find the probability
+7:33 that these two random variables take on
+7:35 two specific values we consider all the
+7:38 possible Z's that could go together with
+7:42 this XY pair so this way we're ranging
+7:46 over all outcomes in which X and y take
+7:50 on these specific values but Z is free
+7:53 to take any value and so we consider all
+7:56 those possible values of Z and sum the
+7:58 corresponding probabilities finally we
+8:03 can talk about functions of multiple
+8:06 random variables suppose that we have
+8:09 two random variables x and y and that we
+8:11 define a function of them so this
+8:14 function is of course a random variable
+8:17 and we can find the PMF of this random
+8:21 variable if we know the joint PMF of X
+8:25 and Y so the PMF which is the
+8:27 probability that the random variable
+8:28 takes on a specific numerical value
+8:31 that's the probability that the function
+8:33 of x and y takes on a specific numerical
+8:36 value and we can find this probability
+8:40 by adding the probabilities of all XY
+8:44 pairs
+8:52 which XY pairs those XY pairs for which
+8:57 the value of Z would be equal to this
+9:02 particular number little Z that we care
+9:06 about so we collect essentially all
+9:09 possible outcomes that make this event
+9:13 to happen and we add the probabilities
+9:16 of all those outcomes
+9:17 finally similarly to the case where we
+9:21 have a single random variable and the
+9:23 function of it we now can talk about
+9:27 expected values of functions of two
+9:30 random variables and there is an
+9:32 expected value rule that parallels the
+9:34 expected value rule that we had
+9:36 developed for the case of a function of
+9:39 this form the form that the expected
+9:41 value rule takes is similar and it's
+9:45 quite natural the interpretation is as
+9:47 follows with this probability a specific
+9:52 XY pair will occur and when that occurs
+9:56 the value of our random variable is a
+9:59 certain number and the combination of
+10:03 these two terms gives us a contribution
+10:05 to the expected value now we consider
+10:07 all possible XY pairs that may occur and
+10:11 we sum over all these XY pairs
+
+
+
+
+video link: https://youtu.be/YQ26hzI4OJk?si=RG3jU6THxYTU5s0w
+## Definitions and Core Concepts (0:00-7:09)
+
+*   **Independence of Random Variables**: Two random variables $X$ and $Y$ are independent if the expected value of their product equals the product of their individual expected values: $E[XY] = E[X]E[Y]$ (2:07-2:39).
+*   **Indicator Variable**: A random variable $X_i$ that takes the value $1$ if a specific trial results in a success, and $0$ otherwise (5:26-5:37).
+*   **Binomial Random Variable**: A random variable representing the total number of successes in $n$ independent trials (5:11-5:16).
+
+## Variance Formulas
+
+*   **Variance of a Sum (General)**: In general, the variance of the sum of two random variables is not necessarily equal to the sum of their variances (0:22-0:30).
+*   **Variance of a Sum (Independent)**: If $X$ and $Y$ are independent, the variance of their sum is the sum of their variances: $Var(X + Y) = Var(X) + Var(Y)$ (0:33-0:43).
+*   **Variance of a Constant Multiple**: $Var(cX) = c^2 Var(X)$ (3:18-3:24).
+*   **Variance of a Bernoulli Variable**: For an indicator variable $X_i$ with parameter $p$, the variance is $Var(X_i) = p(1 - p)$ (6:45-6:55).
+*   **Variance of a Binomial Variable**: Given $X$ is a sum of $n$ independent indicator variables $X_i$, $Var(X) = n 	imes Var(X_1) = np(1 - p)$ (6:12-7:02).
+
+## Examples Used
+
+*   **Identical Variables**: If $X = Y$, then $Var(X + Y) = Var(2X) = 4Var(X)$ (2:51-3:24).
+*   **Negative Correlation**: If $X = -Y$, then $X + Y = 0$, so $Var(X + Y) = 0$ (3:28-3:51).
+*   **Scaling Independence**: If $X$ and $Y$ are independent, $Var(X - 3Y) = Var(X) + Var(-3Y) = Var(X) + 9Var(Y)$ (4:21-4:58).
+The full transcript of the video is provided below:
+
+0:00 let us now revisit the variants and see
+0:03 what happens in the case of independence
+0:05 variances have some general properties
+0:07 that we have already seen however since
+0:11 we often add random variables we would
+0:14 like to be able to say something about
+0:16 the variance of the sum of two random
+0:19 variables unfortunately the situation is
+0:22 not so simple and in general the
+0:25 variance of the sum is not the same as
+0:27 the sum of the variances we will see an
+0:30 example shortly on the other hand when x
+0:33 and y are independent the variance of
+0:37 the sum is equal to the sum of the
+0:40 variances and this is a very useful fact
+0:43 let us go through the derivation of this
+0:45 property but to keep things simple let
+0:49 us assume just for the sake of the
+0:52 derivation that the two random variables
+0:55 have zero mean so in that case the
+1:04 variance of the sum is just the expected
+1:09 value of the square of the sum and we
+1:17 can expand the quadratic and write this
+1:20 as expectation of x squared plus 2xy
+1:24 plus y squared then we use linearity of
+1:30 expectations to write this as expected
+1:33 value of x squared plus twice the
+1:38 expected value of x times y and then
+1:45 plus the expected value of y squared now
+1:50 the first term is just the variance of X
+1:54 because we have assumed that we have
+1:56 zero mean the last term is similarly the
+2:01 variance of Y how about the middle term
+2:07 because of independence the expected
+2:10 value of the product
+2:12 is the same as the product of the
+2:15 expected values and the expected values
+2:19 are zero in our case so this term
+2:22 because of independence this term is
+2:25 going to be equal to zero in particular
+2:29 what we have is that the expected value
+2:31 of XY equals the expected value of x
+2:35 times the expected value of y equal to
+2:39 zero and so we have verified that indeed
+2:43 the variance of the sum is equal to the
+2:46 sum of the variances let us now look at
+2:49 some examples suppose that X is the same
+2:54 random variable as Y clearly this is a
+2:57 case where independence fails to hold if
+2:59 I tell you the value of X then you know
+3:01 the value of y so in this case the
+3:04 variance of the sum is the same as the
+3:07 variance of twice X since X is the same
+3:11 as Y X plus y is 2 times X and then
+3:14 using this property for the variance
+3:18 what happens when we multiply by a
+3:20 constant this is going to be 4 times the
+3:24 variance of X in another example suppose
+3:28 that X is the negative of Y in that case
+3:31 X plus y is identically equal to 0 so
+3:36 we're dealing with a random variable
+3:37 that takes a constant value in
+3:40 particular it is always equal to its
+3:42 mean and so the difference from the mean
+3:44 is always equal to 0 and so the variance
+3:47 will also evaluate to 0 so we see that
+3:51 the variance of the sum can take quite
+3:53 different values depending on the sort
+3:56 of inter relation that we have between
+3:59 the two random variables so these two
+4:02 examples indicate that knowing the
+4:04 variance of each one of the random
+4:05 variables is not enough to say much
+4:09 about the variance of the sum the answer
+4:12 will generally depend on how the two
+4:14 random variables are related to each
+4:16 other and what kind of dependencies they
+4:18 have as the last example suppose now
+4:21 that x and y are independent x is
+4:25 independent from
+4:26 why and therefore X is also independent
+4:29 from minus three-y therefore this
+4:33 variance is equal to the sum of the
+4:36 variances of X and of minus 3y and using
+4:44 the fact that we already know this is
+4:47 going to be equal to the variance of X
+4:51 plus 9 times the variance of Y as an
+4:59 illustration of the usefulness of the
+5:02 property of the variance that we have
+5:04 just established we will now use it to
+5:06 calculate the variance of a binomial
+5:08 random variable remember that a binomial
+5:11 with parameters N and P corresponds to
+5:14 the number of successes in n independent
+5:16 trials we use indicator variables this
+5:22 is the same trick that we use to
+5:24 calculate the expected value of the
+5:26 binomial so the random variable X sub I
+5:30 is equal to 1 if the eyes trial is a
+5:32 success in this is 0 otherwise and as we
+5:37 did before we note that X the total
+5:41 number of successes is the sum of those
+5:44 indicator variables each success makes
+5:47 one of those variables equal to 1 so by
+5:50 adding those indicator variables were
+5:52 just counting the number of successes
+5:55 the key point to note is that the
+5:59 assumption of Independence that we're
+6:01 making is essentially the assumption
+6:05 that these random variables X I are
+6:08 independent of each other so we're
+6:12 dealing with a situation where we have a
+6:14 sum of independent random variables and
+6:19 according to what we have shown the
+6:22 variance of X is going to be the sum of
+6:26 the variances of the x i's
+6:33 now the X eyes all have the same
+6:37 distribution
+6:38 so all these variances will be the same
+6:40 it suffices to consider one of them now
+6:45 x1 is a Bernoulli random variable with
+6:48 parameter P we know what it's variance
+6:51 is it is P times 1 minus P and therefore
+6:58 this is the formula for the variance of
+7:02 a binomial random variable
+
+
+

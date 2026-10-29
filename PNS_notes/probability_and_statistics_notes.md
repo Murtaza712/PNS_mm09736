@@ -38,7 +38,15 @@
   - [3. Geometric Distribution](#3-geometric-distribution)
   - [4. Discrete Uniform Distribution](#4-discrete-uniform-distribution)
   - [5. Poisson Distribution](#5-poisson-distribution)
-- [9. Vocabulary Glossary](#9-vocabulary-glossary)
+- [9. Multiple Discrete Random Variables: Joint PMFs, Conditioning & Independence](#9-multiple-discrete-random-variables-joint-pmfs-conditioning--independence)
+  - [Curated Video Resource Hub](#curated-video-resource-hub)
+  - [1. Joint Probability Mass Functions (Joint PMF)](#1-joint-probability-mass-functions-joint-pmf)
+  - [2. Marginal PMFs ("Squashing" the Table)](#2-marginal-pmfs-squashing-the-table)
+  - [3. Conditioning with Random Variables](#3-conditioning-with-random-variables)
+  - [4. Independence of Random Variables](#4-independence-of-random-variables)
+  - [5. Functions of Multiple Random Variables & 2D LOTUS](#5-functions-of-multiple-random-variables--2d-lotus)
+  - [6. Independence, Expectation & Variance (Classic Exam Traps!)](#6-independence-expectation--variance-classic-exam-traps)
+- [10. Vocabulary Glossary](#10-vocabulary-glossary)
 
 ## Index of Proofs
 - [Proof 1 (De Morgan's Laws)](#proof-1)
@@ -927,7 +935,272 @@ A Poisson distribution is mathematically the limiting case of a Binomial distrib
 
 ---
 
-## 9. Vocabulary Glossary
+## 9. Multiple Discrete Random Variables: Joint PMFs, Conditioning & Independence
+
+### Curated Video Resource Hub
+*   **Primary Master Playlist:** [MIT RES.6-012: Introduction to Probability (Prof. John Tsitsiklis)](https://www.youtube.com/playlist?list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6) *(Note: The course slides and exam problems in this unit are drawn directly from this MIT course)*.
+*   **Intuition & 2D Contingency Tables:** [zedstatistics: Joint and Marginal Probability Distributions (Categorical & 2D Grids)](https://youtu.be/SrEmzdOT65s)
+*   **Conditional PMFs & Multiplication Rule:** [MIT RES.6-012 L07.2: Conditional PMFs & Multiplication Rule](https://youtu.be/T_Q3M_HV94w)
+*   **Total Expectation Theorem:** [MIT RES.6-012 L07.3: Total Expectation Theorem](https://youtu.be/vJAG4EzSQZA)
+*   **Independence of Random Variables:** [MIT RES.6-012 L07.4: Independence of Random Variables](https://youtu.be/F6H50Hbulbk)
+*   **Joint PMFs & 2D Expected Value Rule:** [MIT RES.6-012 L06.7: Joint PMFs and the Expected Value Rule](https://www.youtube.com/watch?v=7nu97OYx4X4)
+*   **Independence, Variances & Binomial Variance:** [MIT RES.6-012 L07.7: Independence, Variances & Binomial Variance](https://www.youtube.com/watch?v=YQ26hzI4OJk)
+
+---
+
+### 1. Joint Probability Mass Functions (Joint PMF)
+When an experiment defines two or more random variables simultaneously on the same sample space (e.g., student height and weight, or the outcomes of two rolled dice), individual 1D PMFs are not enough to capture their relationship. We use a **Joint PMF**.
+
+#### Definition & Axioms:
+For two discrete random variables $X$ and $Y$, the **Joint PMF** gives the probability that $X$ takes the specific value $x$ **and** $Y$ takes the specific value $y$ at the same time:
+<mark style="background-color: lightblue;">$$p_{X,Y}(x, y) = P(X = x \text{ and } Y = y) = P(\{X = x\} \cap \{Y = y\})$$</mark>
+
+Every valid Joint PMF satisfies two fundamental rules:
+1.  **Non-negativity:** $p_{X,Y}(x, y) \ge 0$ for all pairs $(x, y)$.
+2.  **Total Probability (Normalization):** The sum of all cells over the entire 2D table equals 1:
+    <mark style="background-color: lightblue;">$$\sum_{x} \sum_{y} p_{X,Y}(x, y) = 1$$</mark>
+
+#### Finding Probabilities of Events from the Joint PMF:
+To find the probability of any event $A$ (e.g., $P(X + Y \le 3)$ or $P(Y > X)$), simply identify all cells $(x, y)$ that satisfy the condition and sum their probabilities:
+$$P((X, Y) \in A) = \sum_{(x, y) \in A} p_{X,Y}(x, y)$$
+
+---
+
+#### Worked Example 1: The HBO 500-Subscriber Survey (zedstatistics)
+*(From [zedstatistics: Joint and Marginal Distributions](https://youtu.be/SrEmzdOT65s))*
+
+A survey of 500 HBO subscribers evaluates two categorical variables: **Gender** ($\text{Male}, \text{Female}$) and **Favorite Show** ($\text{Game of Thrones (GoT)}, \text{Westworld}, \text{Other}$).
+
+*   **Raw Counts vs. Joint Probabilities:** Dividing every count by total sample size ($N = 500$) yields the Joint Probability Distribution:
+
+| Favorite Show | Male | Female | Marginal Total $P(\text{Show})$ |
+| :--- | :---: | :---: | :---: |
+| **Game of Thrones** | $\frac{80}{500} = \mathbf{0.16}$ | $\frac{120}{500} = \mathbf{0.24}$ | $\mathbf{0.40}$ |
+| **Westworld** | $\frac{100}{500} = \mathbf{0.20}$ | $\frac{25}{500} = \mathbf{0.05}$ | $\mathbf{0.25}$ |
+| **Other** | $\frac{50}{500} = \mathbf{0.10}$ | $\frac{125}{500} = \mathbf{0.25}$ | $\mathbf{0.35}$ |
+| **Marginal Total $P(\text{Gender})$** | $\mathbf{0.46}$ | $\mathbf{0.54}$ | **$\mathbf{1.00}$** |
+
+*   **Joint Probability (Intersection):**
+    $$P(\text{Female} \cap \text{GoT}) = 0.24$$
+*   **Union of Two Events (Addition Rule):**
+    *   *Question:* What is the probability that a subscriber is Male OR prefers Westworld?
+    *   *Formula:* $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+    *   *Calculation:* $P(\text{Male}) + P(\text{Westworld}) - P(\text{Male} \cap \text{Westworld}) = 0.46 + 0.25 - 0.20 = \mathbf{0.51}$.
+    *   *Why subtract?* Because the joint cell $(\text{Male}, \text{Westworld}) = 0.20$ is counted twice when adding the entire Male column and the entire Westworld row!
+
+---
+
+#### Worked Example 2: Solving for Unknowns in a Joint PMF Table (Past Quiz 5 Style)
+*Scenario:* Two discrete random variables $X \in \{1, 2, 3\}$ and $Y \in \{1, 2, 3\}$ have the following joint distribution, with condition $P(Y > X) = \frac{9}{50}$:
+
+| $Y \backslash X$ | $X = 1$ | $X = 2$ | $X = 3$ |
+| :---: | :---: | :---: | :---: |
+| **$Y = 3$** | $\frac{1}{25}$ | $a$ | $b$ |
+| **$Y = 2$** | $\frac{2}{25}$ | $\frac{3}{25}$ | $\frac{5}{25}$ |
+| **$Y = 1$** | $\frac{2}{25}$ | $\frac{3}{25}$ | $\frac{5}{25}$ |
+
+*   **Step 1: Use the event condition $P(Y > X) = \frac{9}{50}$**
+    The pairs $(x, y)$ where $y > x$ are: $(1, 2)$, $(1, 3)$, and $(2, 3)$.
+    $$P(Y > X) = p(1, 2) + p(1, 3) + p(2, 3) = \frac{2}{25} + \frac{1}{25} + a = \frac{3}{25} + a$$
+    $$\frac{3}{25} + a = \frac{9}{50} \implies a = \frac{9}{50} - \frac{6}{50} = \frac{3}{50} = \mathbf{0.06}$$
+*   **Step 2: Use the Normalization Axiom ($\sum \sum p(x, y) = 1$)**
+    Sum of all known cells:
+    $$\text{Row 1} = \frac{2}{25} + \frac{3}{25} + \frac{5}{25} = \frac{10}{25} = 0.40$$
+    $$\text{Row 2} = \frac{2}{25} + \frac{3}{25} + \frac{5}{25} = \frac{10}{25} = 0.40$$
+    $$\text{Row 3} = \frac{1}{25} + a + b = 0.04 + 0.06 + b = 0.10 + b$$
+    $$\text{Total} = 0.40 + 0.40 + 0.10 + b = 1.0 \implies 0.90 + b = 1.0 \implies b = \mathbf{0.10} = \frac{1}{10}$$
+
+---
+
+### 2. Marginal PMFs ("Squashing" the Table)
+A **marginal PMF** represents the unconditional probability distribution of a single variable on its own, completely ignoring the other variable. It is called "marginal" because the numbers sit in the margins (outer borders) of the contingency table.
+
+#### Formulas:
+*   **Marginal PMF of $X$** (summing out all possible values of $Y$ — sum down each column):
+    <mark style="background-color: lightblue;">$$p_X(x) = \sum_{y} p_{X,Y}(x, y)$$</mark>
+*   **Marginal PMF of $Y$** (summing out all possible values of $X$ — sum across each row):
+    <mark style="background-color: lightblue;">$$p_Y(y) = \sum_{x} p_{X,Y}(x, y)$$</mark>
+
+Both marginal PMFs are valid standalone 1D distributions that sum to 1:
+$$\sum_x p_X(x) = 1 \quad \text{and} \quad \sum_y p_Y(y) = 1$$
+
+---
+
+### 3. Conditioning with Random Variables
+Conditioning means **restricting your universe** based on new information, throwing away impossible outcomes, and scaling the remaining probabilities so their sum equals 1.
+
+#### 3.1 Conditioning an RV on an Event ($A$)
+When we learn that an event $A$ has occurred (where $P(A) > 0$), the conditional PMF of $X$ given $A$ is:
+<mark style="background-color: lightblue;">$$p_{X|A}(x) = P(X = x \mid A) = \frac{P(\{X = x\} \cap A)}{P(A)}$$</mark>
+
+*   **Conditional Expectation:** $\mathbb{E}[X \mid A] = \sum_x x \cdot p_{X|A}(x)$
+*   **Conditional Variance:** $\text{Var}(X \mid A) = \mathbb{E}[X^2 \mid A] - (\mathbb{E}[X \mid A])^2$
+
+*Worked Example (Teacher's Week 9 Lecture Slide):*
+Let $X \sim \text{Uniform}\{1, 2, 3, 4\}$, so $p_X(x) = \frac{1}{4}$ for $x \in \{1, 2, 3, 4\}$. Let event $A = \{X \ge 2\} = \{2, 3, 4\}$.
+1.  $P(A) = P(X=2) + P(X=3) + P(X=4) = \frac{3}{4}$.
+2.  For $x = 1$: $p_{X|A}(1) = 0$ (impossible under event $A$).
+3.  For $x \in \{2, 3, 4\}$:
+    $$p_{X|A}(x) = \frac{1/4}{3/4} = \mathbf{\frac{1}{3}}$$
+4.  **Conditional Mean:**
+    $$\mathbb{E}[X \mid A] = 2\left(\frac{1}{3}\right) + 3\left(\frac{1}{3}\right) + 4\left(\frac{1}{3}\right) = \frac{9}{3} = \mathbf{3}$$
+    *(Notice: Unconditional $\mathbb{E}[X] = \frac{1+2+3+4}{4} = 2.5$. Conditioning on $X \ge 2$ shifted the mean up to 3!)*
+5.  **Conditional Variance:**
+    $$\mathbb{E}[X^2 \mid A] = 2^2\left(\frac{1}{3}\right) + 3^2\left(\frac{1}{3}\right) + 4^2\left(\frac{1}{3}\right) = \frac{4 + 9 + 16}{3} = \frac{29}{3}$$
+    $$\text{Var}(X \mid A) = \frac{29}{3} - 3^2 = \frac{29}{3} - \frac{27}{3} = \mathbf{\frac{2}{3}} \approx 0.667$$
+
+---
+
+#### 3.2 Conditioning an RV on Another RV ($Y = y$)
+*(From [MIT RES.6-012 L07.2](https://youtu.be/T_Q3M_HV94w))*
+
+When the conditioning event is the observation that another random variable takes a specific value $Y = y$ (where $p_Y(y) > 0$):
+<mark style="background-color: lightblue;">$$p_{X|Y}(x \mid y) = P(X = x \mid Y = y) = \frac{p_{X,Y}(x, y)}{p_Y(y)}$$</mark>
+
+*   **Mechanic:** Look at only the row corresponding to $Y = y$. Take each cell in that row and divide it by the row's marginal total $p_Y(y)$.
+*   **The Multiplication Rule for Joint PMFs:**
+    $$p_{X,Y}(x, y) = p_Y(y) \cdot p_{X|Y}(x \mid y) = p_X(x) \cdot p_{Y|X}(y \mid x)$$
+*   **Law of Total Probability for PMFs:**
+    $$p_X(x) = \sum_{y} p_Y(y) \cdot p_{X|Y}(x \mid y)$$
+
+---
+
+#### 3.3 The Law of Total Expectation
+*(From [MIT RES.6-012 L07.3](https://youtu.be/vJAG4EzSQZA))*
+
+Just as the Law of Total Probability allows you to find probabilities by partitioning the universe into scenarios, the **Total Expectation Theorem** lets you calculate the overall expected value by taking a weighted average of conditional expectations:
+
+<mark style="background-color: lightblue;">$$\mathbb{E}[X] = \sum_{y} p_Y(y) \cdot \mathbb{E}[X \mid Y = y]$$</mark>
+
+*   **Partitioning via Events:** If $A_1, A_2, \dots, A_n$ form a disjoint partition of $\Omega$:
+    $$\mathbb{E}[X] = \sum_{i=1}^{n} P(A_i) \cdot \mathbb{E}[X \mid A_i]$$
+*   **Intuition (Divide and Conquer):** If a model is too complex to compute $\mathbb{E}[X]$ directly, condition on an informative variable $Y$. Find the average in each scenario, then weight those averages by each scenario's probability.
+*   **Validity:** This theorem holds even if $Y$ takes values in a countably infinite set, provided $\mathbb{E}[X]$ exists.
+
+---
+
+### 4. Independence of Random Variables
+*(From [MIT RES.6-012 L07.4](https://youtu.be/F6H50Hbulbk))*
+
+#### Mathematical Definitions:
+Two discrete random variables $X$ and $Y$ are **independent** if knowledge of one gives zero information about the other. Formally, this means the joint PMF factors into the product of the marginal PMFs:
+<mark style="background-color: lightblue;">$$p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y) \quad \text{for ALL } x \text{ and ALL } y$$</mark>
+
+**Equivalent Formulations:**
+1.  **Via Conditional PMF:**
+    $$p_{X|Y}(x \mid y) = p_X(x) \quad \text{for all } x, y \text{ (where } p_Y(y) > 0\text{)}$$
+    *(Knowing that $Y = y$ does not change the distribution of $X$).*
+2.  **Via Cumulative Distribution Function (CDF):**
+    $$F_{X,Y}(x, y) = F_X(x) \cdot F_Y(y) \quad \text{for all } x, y$$
+3.  **Via Arbitrary Sets/Events:**
+    $$P(X \in A, Y \in B) = P(X \in A) \cdot P(Y \in B) \quad \text{for any sets } A \text{ and } B$$
+4.  **Extension to 3+ Variables:** $X, Y, Z$ are mutually independent if:
+    $$p_{X,Y,Z}(x, y, z) = p_X(x) \cdot p_Y(y) \cdot p_Z(z) \quad \text{for all } x, y, z$$
+
+---
+
+#### How to Test for Independence on an Exam:
+*   **To DISPROVE Independence:** Find **just ONE single cell** where:
+    $$p_{X,Y}(x, y) \neq p_X(x) \cdot p_Y(y)$$
+    If one cell fails, stop immediately: **$X$ and $Y$ are dependent.**
+*   **From the HBO Survey:**
+    $P(\text{Westworld} \cap \text{Female}) = 0.05$.
+    Marginals: $P(\text{Westworld}) = 0.25$, $P(\text{Female}) = 0.54$.
+    Product: $0.25 \times 0.54 = \mathbf{0.135} \neq 0.05$.
+    $\implies$ **Dependent!**
+*   **The Coin & Die Thought Experiment (Why Multiplication Works):**
+    Flip a fair coin ($H, T$) and roll a fair 6-sided die ($1$ to $6$). What is $P(\text{Heads and } 6)$?
+    Because the coin has zero physical effect on the die, $P(H \cap 6) = P(H) \times P(6) = \frac{1}{2} \times \frac{1}{6} = \frac{1}{12}$.
+
+---
+
+#### Conditional Independence (Exam Concept!)
+Two random variables $X$ and $Y$ can be **dependent globally across the whole sample space**, but become **independent when conditioned on an event $A$**:
+<mark style="background-color: lightblue;">$$p_{X,Y|A}(x, y) = p_{X|A}(x) \cdot p_{Y|A}(y) \quad \text{for all } x, y$$</mark>
+
+*Teacher's Slide Example (Week 11 Lecture 1):*
+A $4 \times 4$ joint distribution is dependent across the entire table. However, when we condition on the event $A = \{X \le 2 \text{ and } Y \ge 3\}$:
+*   The restricted sub-grid becomes a $2 \times 2$ table with values:
+    *   $p(1, 4) = 1/9$, $p(2, 4) = 2/9$
+    *   $p(1, 3) = 2/9$, $p(2, 3) = 4/9$
+*   Checking row and column totals shows that every single cell equals $\text{Row Total} \times \text{Column Total}$! Thus, $X$ and $Y$ are **conditionally independent given $A$**.
+
+---
+
+### 5. Functions of Multiple Random Variables & 2D LOTUS
+*(From [MIT RES.6-012 L06.7](https://www.youtube.com/watch?v=7nu97OYx4X4))*
+
+When we create a new random variable $Z$ as a function of two existing variables: $Z = g(X, Y)$ (such as $Z = X + 2Y$, $Z = XY$, or $W = (X_1 - X_2)^2$):
+
+#### Method 1: Constructing the PMF of $Z$
+To find the probability that $Z = z$, identify all pairs $(x, y)$ that map to $z$ and sum their joint probabilities:
+<mark style="background-color: lightblue;">$$p_Z(z) = P(g(X, Y) = z) = \sum_{(x, y): g(x, y) = z} p_{X,Y}(x, y)$$</mark>
+
+#### Method 2: The Expected Value Rule (2D LOTUS)
+You **do not need** to calculate the PMF of $Z$ first to find its expected value! You can compute $\mathbb{E}[g(X, Y)]$ directly from the joint table:
+<mark style="background-color: lightblue;">$$\mathbb{E}[g(X, Y)] = \sum_{x} \sum_{y} g(x, y) \cdot p_{X,Y}(x, y)$$</mark>
+
+#### Linearity of Expectation (The Universal Rule):
+In the special case of a linear function $g(X, Y) = aX + bY + c$, expectation splits cleanly:
+<mark style="background-color: lightblue;">$$\mathbb{E}[aX + bY + c] = a\mathbb{E}[X] + b\mathbb{E}[Y] + c$$</mark>
+> **CRITICAL EXAM FACT:** Linearity of expectation **ALWAYS holds**, whether $X$ and $Y$ are independent or heavily dependent!
+
+---
+
+### 6. Independence, Expectation & Variance (Classic Exam Traps!)
+*(From [MIT RES.6-012 L07.4](https://youtu.be/F6H50Hbulbk) & [L07.7](https://www.youtube.com/watch?v=YQ26hzI4OJk))*
+
+#### 6.1 Expectation of a Product:
+*   **In General (Dependent):** $\mathbb{E}[XY] \neq \mathbb{E}[X]\mathbb{E}[Y]$.
+*   **If $X$ and $Y$ are INDEPENDENT:**
+    <mark style="background-color: lightblue;">$$\mathbb{E}[XY] = \mathbb{E}[X] \cdot \mathbb{E}[Y]$$</mark>
+*   **Proof:**
+    $$\mathbb{E}[XY] = \sum_x \sum_y x y \cdot p_{X,Y}(x, y) = \sum_x \sum_y x y \cdot p_X(x) p_Y(y) = \left(\sum_x x p_X(x)\right)\left(\sum_y y p_Y(y)\right) = \mathbb{E}[X]\mathbb{E}[Y]$$
+*   *Generalization:* If $X$ and $Y$ are independent, any functions $g(X)$ and $h(Y)$ are also independent, so:
+    $$\mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)] \cdot \mathbb{E}[h(Y)]$$
+
+---
+
+#### 6.2 Variance of Sums & Classic Traps:
+*   **Universal Rules for Single RVs:**
+    $$\text{Var}(aX + b) = a^2 \text{Var}(X) \quad \text{and} \quad \text{Var}(X + c) = \text{Var}(X)$$
+*   **In General (Dependent):** $\text{Var}(X + Y) \neq \text{Var}(X) + \text{Var}(Y)$.
+*   **If $X$ and $Y$ are INDEPENDENT:**
+    <mark style="background-color: lightblue;">$$\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$$</mark>
+    <mark style="background-color: lightblue;">$$\text{Var}(X - Y) = \text{Var}(X) + \text{Var}(Y)$$</mark>
+
+> [!WARNING]
+> #### The #1 Classic Exam Trap: Coefficients Inside Variance
+> What is $\text{Var}(X - 3Y)$ if $X$ and $Y$ are independent?
+> $$\text{Var}(X - 3Y) = \text{Var}(X + (-3)Y) = \text{Var}(X) + (-3)^2 \text{Var}(Y) = \mathbf{\text{Var}(X) + 9\text{Var}(Y)}$$
+> **Variances NEVER subtract!** The minus sign $(-3)$ is squared into a positive $+9$.
+
+*   **What if they are NOT independent?**
+    *   If $X = Y$: $\text{Var}(X + X) = \text{Var}(2X) = 2^2 \text{Var}(X) = \mathbf{4\text{Var}(X)} \neq 2\text{Var}(X)$.
+    *   If $X = -Y$: $\text{Var}(X + (-X)) = \text{Var}(0) = \mathbf{0}$.
+
+---
+
+#### 6.3 Indicator Random Variables (The Secret Weapon for Proofs)
+An **indicator random variable** $I_A$ takes value $1$ if event $A$ occurs, and $0$ otherwise.
+$$\mathbb{E}[I_A] = 1 \cdot P(A) + 0 \cdot P(A^c) = \mathbf{P(A)}$$
+$$\text{Var}(I_A) = P(A)(1 - P(A))$$
+
+*   **Deriving Binomial Mean & Variance in Seconds:**
+    A Binomial RV $X \sim \text{Binomial}(n, p)$ is simply the sum of $n$ independent Bernoulli trials: $X = X_1 + X_2 + \dots + X_n$.
+    *   $\mathbb{E}[X] = \mathbb{E}[X_1] + \dots + \mathbb{E}[X_n] = n \cdot p$.
+    *   $\text{Var}(X) = \text{Var}(X_1) + \dots + \text{Var}(X_n) = n \cdot p(1 - p)$ *(valid because trials are independent!)*.
+*   **The Hat Problem (Teacher's Slide Exercise):**
+    $n$ people throw their hats into a box and pick one at random. Let $X$ be the number of people who get their own hat. What is $\mathbb{E}[X]$?
+    *   Let $X_i = 1$ if person $i$ gets their own hat, and $0$ otherwise.
+    *   $P(X_i = 1) = \frac{1}{n} \implies \mathbb{E}[X_i] = \frac{1}{n}$.
+    *   By linearity of expectation (which holds even though the choices are dependent):
+        $$\mathbb{E}[X] = \sum_{i=1}^{n} \mathbb{E}[X_i] = n \times \frac{1}{n} = \mathbf{1}$$
+    *   *Surprising result:* Regardless of whether there are 3 people or 1,000,000 people, the expected number of people who get their own hat is **always exactly 1**!
+
+---
+
+## 10. Vocabulary Glossary
 Here is a master list of all the terminology introduced in this document:
 
 *   **Sample Space ($\Omega$):** The set of all possible outcomes of an experiment.
@@ -952,5 +1225,11 @@ Here is a master list of all the terminology introduced in this document:
 *   **Binomial Distribution:** The distribution of the number of successes in $n$ independent, identical Bernoulli trials.
 *   **Geometric Distribution:** The distribution of the number of trials needed to achieve the first success.
 *   **Poisson Distribution:** The distribution of the number of independent events occurring in a fixed interval of time or space at a constant average rate $\lambda$, where $E[X] = Var(X) = \lambda$.
-
-
+*   **Joint PMF ($p_{X,Y}(x, y)$):** A 2D function giving the simultaneous probability $P(X = x, Y = y)$ of two discrete random variables. Sums to 1 across the whole table.
+*   **Marginal PMF ($p_X(x), p_Y(y)$):** The individual PMF of a single random variable obtained by summing out ("squashing") the other variable from the joint distribution table.
+*   **Conditional PMF ($p_{X|Y}(x|y)$ or $p_{X|A}(x)$):** The updated probability mass function of an RV under a restricted sample space or given a specific value of another RV.
+*   **Conditional Expectation ($\mathbb{E}[X|Y=y]$):** The expected value of $X$ evaluated strictly within the conditional distribution of a given row/scenario.
+*   **Law of Total Expectation:** A divide-and-conquer rule stating that the unconditional expected value is the weighted average of conditional expected values: $\mathbb{E}[X] = \sum_y p_Y(y)\mathbb{E}[X|Y=y]$.
+*   **Independent Random Variables:** Variables whose joint PMF factors into the product of their marginals ($p_{X,Y}(x,y) = p_X(x)p_Y(y)$) across every single cell.
+*   **Conditional Independence:** Variables that are dependent overall, but become independent when conditioned on a particular event or sub-region.
+*   **Indicator Random Variable ($I_A$):** A binary random variable that equals 1 if event $A$ occurs and 0 otherwise, where $\mathbb{E}[I_A] = P(A)$.
